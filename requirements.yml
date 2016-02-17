@@ -1,0 +1,11 @@
+# ansible-galaxy roles
+# ansible-galaxy install -r requirements.yml -p shared-roles --force
+
+#TODO: replace later with William's ig/deploy/bind
+- src: git://git.locationlabs.com/forks/github/resmo/ansible-role-bind
+  version: origin/master
+  scm: git
+
+- src: git://git.locationlabs.com/ansible/roles/ipam
+  version: origin/develop
+  scm: git

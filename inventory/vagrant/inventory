@@ -1,0 +1,12 @@
+# Vagrant inventory
+#
+
+[dns]
+dns1.vagrant
+
+[ipam]
+ipam1.vagrant
+
+[vagrant:children]
+ipam
+dns

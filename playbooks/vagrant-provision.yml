@@ -1,0 +1,18 @@
+---
+- name: Try and make environment as close to production as possible
+  hosts: vagrant
+  user: vagrant
+  become: yes
+  tasks:
+    - name: Fix root keys
+        # remove the 0-size thing that gets created somehow
+      stat: path=~root/.ssh/authorized_keys
+      register: ak_status
+      changed_when: false
+
+    - name: Add authorized_keys
+      file: path=~root/.ssh/authorized_keys state=absent
+      when: ak_status.stat.size == 0
+
+    - name: move vagrant key
+      command: rsync -v ~vagrant/.ssh/authorized_keys ~root/.ssh/ creates=~root/.ssh/authorized_keys
