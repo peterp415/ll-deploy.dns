@@ -2,23 +2,13 @@
 
 ## Summary
 
-Mostly consisting for ipam management 
+Mostly consisting for ipam management and bind roles for deploying dns.
 
 ## Project Documentation
 
 - https://jira.locationlabs.com/browse/IG-1518 
 - https://confluence.locationlabs.com/display/INFRA/DNS+Improvement
 
-## Vagrant setup 
+HQ is already being deployed via Joe's dnsdeploy
+- git@git.locationlabs.com:dnsdeploy
 
-The full test would be master + slave configurations and ipam
-
-
-
-
-## Open question: How will people interact with DNS?
-- Change on a GUI
-- Run a command against a server?
-- What kind of checks
- \ Stop duplicate IPs
- \ Check to make sure everything is up
