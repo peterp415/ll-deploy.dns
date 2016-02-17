@@ -46,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # might be an ansible version issue (which version of ansible does vagrant use?).
   config.vm.provision "ansible" do |ansible|
     ansible.inventory_path = "inventory/vagrant"
-    ansible.playbook = "playbooks/vagrant-provision.yml"
+    ansible.playbook = "vagrant-provision.yml"
   end
 
   nodes.each do |node|

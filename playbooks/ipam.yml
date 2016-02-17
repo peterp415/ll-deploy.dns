@@ -1,6 +1,0 @@
----
-- name: install ipam servers
-  hosts: ipam
-  remote_user: root
-  roles:
-    - ipam
