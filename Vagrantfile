@@ -2,14 +2,10 @@
 # vi: set ft=ruby :
 
 nodes = [
-   {
-      :hostname => "dns1.vagrant",
-      :ips => [ "172.16.16.3" ],
-   },
-   {
-      :hostname => "ipam1.vagrant",
-      :ips => [ "172.16.16.11" ],
-   },
+   { :hostname => "ns1.common.sfdc.vagrant", :ips => [ "172.16.16.11" ], },
+   { :hostname => "ns2.common.sfdc.vagrant", :ips => [ "172.16.16.12" ], },
+   { :hostname => "ns1.aci.sfdc.vagrant",    :ips => [ "172.16.16.21" ], },
+   { :hostname => "ns2.aci.sfdc.vagrant",    :ips => [ "172.16.16.22" ], },
 ]
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
@@ -37,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider :virtualbox do |vb|
     # for troubleshooting cloud-init/vagrant/ubuntu issue (https://github.com/mitchellh/vagrant/issues/3860)
     # vb.gui = true
-    vb.customize ["modifyvm", :id, "--memory", 512]
+    vb.customize ["modifyvm", :id, "--memory", 256]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 

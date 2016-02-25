@@ -1,15 +1,38 @@
-# Vagrant inventory
-#
+[common]
+ns1.common.sfdc.vagrant
+ns2.common.sfdc.vagrant
 
-[dns]
-dns1.vagrant
+[common:vars]
+master="ns1.common.sfdc.vagrant"
+master_zones='["sfdc.vagrant"]'
+slave_zones='{"silos": ["silos"]}'
 
-[ipam]
-ipam1.vagrant
+[aci]
+ns1.aci.sfdc.vagrant
+ns2.aci.sfdc.vagrant
+
+[aci:vars]
+master="ns1.aci.sfdc.vagrant"
+master_zones='["aci.sfdc.vagrant"]'
+
+[silos:children]
+aci
+
+[silos:vars]
+slave_zones='{"common":["sfdc"]}'
+
+[sfdc:children]
+common
+silos
+
+[lldns:children]
+sfdc
+
+[lldns:vars]
+dns_world="lldns"
 
 [vagrant:children]
-ipam
-dns
+lldns
 
 [vagrant:vars]
 ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
