@@ -1,0 +1,15 @@
+---
+dns_world: "lldns"
+
+# bind_config_master_zones:
+#   - name: vagrant.example.com
+# 
+# # TODO: iterate through dns with shared zones
+# bind_config_master_allow_transfer:
+#   - '127.0.0.1'
+# 
+# bind_config_slave_zones:
+# - name: vagrant.example.com
+#   masters: [ '172.24.0.10', '172.24.0.11' ]
+#   zones:
+#     - evdc.wavemarket.com
