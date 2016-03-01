@@ -31,7 +31,11 @@ sfdc
 [lldns:vars]
 dns_world="lldns"
 
+[ipam]
+ipam1.vagrant
+
 [vagrant:children]
+ipam
 lldns
 
 [vagrant:vars]
