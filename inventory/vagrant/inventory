@@ -2,34 +2,16 @@
 ns1.common.sfdc.vagrant
 ns2.common.sfdc.vagrant
 
-[common:vars]
-master="ns1.common.sfdc.vagrant"
-master_zones='["sfdc.vagrant"]'
-slave_zones='{"silos": ["silos"]}'
-
 [aci]
 ns1.aci.sfdc.vagrant
 ns2.aci.sfdc.vagrant
 
-[aci:vars]
-master="ns1.aci.sfdc.vagrant"
-master_zones='["aci.sfdc.vagrant"]'
-
-[silos:children]
-aci
-
-[silos:vars]
-slave_zones='{"common":["sfdc"]}'
-
 [sfdc:children]
 common
-silos
+aci
 
 [lldns:children]
 sfdc
-
-[lldns:vars]
-dns_world="lldns"
 
 [ipam]
 ipam1.vagrant
