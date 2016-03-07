@@ -1,15 +1,24 @@
-# Vagrant inventory
-#
+[common]
+ns1.common.sfdc.vagrant
+ns2.common.sfdc.vagrant
 
-[dns]
-dns1.vagrant
+[aci]
+ns1.aci.sfdc.vagrant
+ns2.aci.sfdc.vagrant
+
+[sfdc:children]
+common
+aci
+
+[lldns:children]
+sfdc
 
 [ipam]
 ipam1.vagrant
 
 [vagrant:children]
 ipam
-dns
+lldns
 
 [vagrant:vars]
 ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
