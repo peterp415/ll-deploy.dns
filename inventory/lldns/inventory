@@ -1,0 +1,91 @@
+[common_dns]
+ns1.common.sfdc.wavemarket.com
+ns2.common.sfdc.wavemarket.com
+
+[common_dns:vars]
+master="ns1.common.sfdc.wavemarket.com"
+master_zones=["common.sfdc.wavemarket.com", "att.sfdc.wavemarket.com"]
+slave_zones={"prod_silo_dns": ["prod_silo_dns"]}
+
+[aci_dns]
+ns1.aci.sfdc.wavemarket.com
+ns2.aci.sfdc.wavermarket.com
+
+[aci_dns:vars]
+master="ns1.aci.sfdc.wavemarket.com"
+master_zones=["aci.sfdc.wavemarket.com"]
+slave_zones={"common": ["prod_silo_dns"]}
+
+[afm_dns]
+ns1.afm.sfdc.wavemarket.com
+ns2.afm.sfdc.wavemarket.com
+
+[afm_dns:vars]
+master="ns1.afm.sfdc.wavemarket.com"
+master_zones=["afm.sfdc.wavemarket.com"]
+slave_zones={"common_dns": ["prod_silo_dns"]}
+
+[elder_dns]
+ns1-elder.sfdc.wavemarket.com
+ns2-elder.sfdc.wavemarket.com
+
+[elder_dns:vars]
+master="ns1-elder.sfdc.wavemarket.com"
+master_zones=["sfdc.wavemarket.com"]
+slaves_zones={"common_dns": ["prod_silo_dns"]}
+
+[sfp_dns]
+ns1.sfp.sfdc.wavemarket.com
+ns2.sfp.sfdc.wavemarket.com
+
+[sfp_dns:vars]
+master="ns1.sfp.sfdc.wavemarket.com"
+master_zones=["sfp.sfdc.wavemarket.com"]
+slave_zones={"common_dns": ["prod_silo_dns"]}
+
+[tfw_dns]
+ns1.tfw.sfdc.wavemarket.com
+ns2.tfw.sfdc.wavemarket.com
+
+[tfw_dns:vars]
+master="ns1.tfw.sfdc.wavemarket.com"
+master_zones=["tfw.sfdc.wavemarket.com"]
+slave_zones={"common_dns": ["prod_silo_dns"]}
+
+[prod_silo_dns:children]
+common_dns
+aci_dns
+afm_dns
+elder_dns
+sfp_dns
+tfw_dns
+
+[public_dns]
+ns1.wavemarket.com
+ns2.wavemarket.com
+
+[public_dns:vars]
+master="ns1.wavemarket.com"
+master_zones=["locationlabs.com", "wavemarket.com"]
+offer_zones=[["locationlabs.com", "wavemarket.com"], [["206.253.194.65", "206.253.194.97"]]]
+slave_zones=[]
+
+[evdc_dns]
+ns1.evdc.wavemarket.com
+ns2.evdc.wavemarket.com
+
+[evdc_dns:vars]
+master="ns1.evdc.wavemarket.com"
+master_zones=["evdc.wavemarket.com"]
+slave_zones=["common_dns", ["prod_silo_dns"]
+
+# FIXME HQ
+
+
+[lldns:children]
+public_dns
+evdc_dns
+prod_silo_dns
+
+[lldns:vars]
+dns_world="lldns"
