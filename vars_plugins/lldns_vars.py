@@ -27,15 +27,15 @@ class VarsModule(object):
         if the host is master for the cluster, or otherwise empty.
         Returns dictionary with zone as key and list of IPs to notify as value
         """
-        master_zones = {} 
+        master_zones = {}
         if (('master' in hostvars) and
             ('master_zones' in hostvars) and
-            (hostvars['master'] == hostvars['inventory_hostname')):
+            (hostvars['master'] == hostvars['inventory_hostname'])):
             for zone in hostvars['master_zones']: #FIXME evil indentation
                 master_zones[zone] = '127.0.0.1' #FIXME
         return master_zones
 
-    def get_slave_zones (self, host):
+    def get_slave_zones (self, hostvars):
         """
         Get zones slaved by a host.
         Returns dictionary with zone as key and list of IPs as value
@@ -50,8 +50,8 @@ class VarsModule(object):
         dns_world = hostvars['dns_world']
         root = self.inventory.get_group(dns_world)
         clusters = self.expand_group (root)
-        host_master_zones = self.get_master_zones (host)
-        host_slave_zones = self.get_slave_zones (host)
+        host_master_zones = self.get_master_zones (hostvars)
+        host_slave_zones = self.get_slave_zones (hostvars)
         return {"lldns" : clusters,
                 "host_master_zones" : host_master_zones,
                 "host_slave_zones" : host_slave_zones }
