@@ -1,0 +1,10 @@
+[evdc]
+ns1-evdc.evdc.wavemarket.com
+ns2-evdc.evdc.wavemarket.com
+
+[lldns:children]
+evdc
+
+[ipam]
+# ipam in staging is still TBD, will be something like
+# ipam1.evdc
