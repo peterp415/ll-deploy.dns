@@ -1,1 +1,4 @@
 ---
+master: "ns1.common.sfdc.wavemarket.com"
+master_zones: ["common.sfdc.wavemarket.com", "att.sfdc.wavemarket.com"]
+slave_zones: {"prod_silo_dns": ["prod_silo_dns"]}

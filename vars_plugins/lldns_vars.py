@@ -116,7 +116,7 @@ class VarsModule(object):
             zones = [root]
         return zones
 
-    def get_slave_zones (self, host):
+    def get_slave_zones (self, host): #FIXME: do not slave own zones. do slave zones in own cluster if not master
         """
         Get zones slaved by a host.
         Returns dictionary with zone as key and list of IPs as value
