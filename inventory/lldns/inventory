@@ -1,6 +1,6 @@
 [common_dns]
-ns1.common.sfdc.wavemarket.com
-ns2.common.sfdc.wavemarket.com
+ns1.common.sfdc.wavemarket.com bind_ip="192.168.1.2"
+ns2.common.sfdc.wavemarket.com bind_ip="192.168.1.3"
 
 [common_dns:vars]
 master="ns1.common.sfdc.wavemarket.com"
@@ -8,49 +8,24 @@ master_zones=["common.sfdc.wavemarket.com", "att.sfdc.wavemarket.com"]
 slave_zones={"prod_silo_dns": ["prod_silo_dns"]}
 
 [aci_dns]
-ns1.aci.sfdc.wavemarket.com
-ns2.aci.sfdc.wavermarket.com
-
-[aci_dns:vars]
-master="ns1.aci.sfdc.wavemarket.com"
-master_zones=["aci.sfdc.wavemarket.com"]
-slave_zones={"common": ["prod_silo_dns"]}
+ns1.aci.sfdc.wavemarket.com bind_ip="192.168.2.2"
+ns2.aci.sfdc.wavermarket.com bind_ip="192.168.2.3"
 
 [afm_dns]
-ns1.afm.sfdc.wavemarket.com
-ns2.afm.sfdc.wavemarket.com
-
-[afm_dns:vars]
-master="ns1.afm.sfdc.wavemarket.com"
-master_zones=["afm.sfdc.wavemarket.com"]
-slave_zones={"common_dns": ["prod_silo_dns"]}
+ns1.afm.sfdc.wavemarket.com bind_ip="192.168.3.2"
+ns2.afm.sfdc.wavemarket.com bind_ip="192.168.3.3"
 
 [elder_dns]
-ns1-elder.sfdc.wavemarket.com
-ns2-elder.sfdc.wavemarket.com
-
-[elder_dns:vars]
-master="ns1-elder.sfdc.wavemarket.com"
-master_zones=["sfdc.wavemarket.com"]
-slaves_zones={"common_dns": ["prod_silo_dns"]}
+ns1-elder.sfdc.wavemarket.com bind_ip="192.168.4.2"
+ns2-elder.sfdc.wavemarket.com bind_ip="192.168.4.3"
 
 [sfp_dns]
-ns1.sfp.sfdc.wavemarket.com
-ns2.sfp.sfdc.wavemarket.com
-
-[sfp_dns:vars]
-master="ns1.sfp.sfdc.wavemarket.com"
-master_zones=["sfp.sfdc.wavemarket.com"]
-slave_zones={"common_dns": ["prod_silo_dns"]}
+ns1.sfp.sfdc.wavemarket.com bind_ip="192.168.5.2"
+ns2.sfp.sfdc.wavemarket.com bind_ip="192.168.5.3"
 
 [tfw_dns]
-ns1.tfw.sfdc.wavemarket.com
-ns2.tfw.sfdc.wavemarket.com
-
-[tfw_dns:vars]
-master="ns1.tfw.sfdc.wavemarket.com"
-master_zones=["tfw.sfdc.wavemarket.com"]
-slave_zones={"common_dns": ["prod_silo_dns"]}
+ns1.tfw.sfdc.wavemarket.com bind_ip="192.168.6.2"
+ns2.tfw.sfdc.wavemarket.com bind_ip="192.168.6.3"
 
 [prod_silo_dns:children]
 common_dns
@@ -61,26 +36,14 @@ sfp_dns
 tfw_dns
 
 [public_dns]
-ns1.wavemarket.com
-ns2.wavemarket.com
-
-[public_dns:vars]
-master="ns1.wavemarket.com"
-master_zones=["locationlabs.com", "wavemarket.com"]
-offer_zones=[["locationlabs.com", "wavemarket.com"], [["206.253.194.65", "206.253.194.97"]]]
-slave_zones=[]
+ns1.wavemarket.com bind_ip="192.168.7.2"
+ns2.wavemarket.com bind_ip="192.168.7.3"
 
 [evdc_dns]
-ns1.evdc.wavemarket.com
-ns2.evdc.wavemarket.com
-
-[evdc_dns:vars]
-master="ns1.evdc.wavemarket.com"
-master_zones=["evdc.wavemarket.com"]
-slave_zones=["common_dns", ["prod_silo_dns"]
+ns1.evdc.wavemarket.com bind_ip="192.168.8.2"
+ns2.evdc.wavemarket.com bind_ip="192.168.8.3"
 
 # FIXME HQ
-
 
 [lldns:children]
 public_dns

@@ -1,0 +1,5 @@
+---
+master: "ns1.wavemarket.com"
+master_zones: ["locationlabs.com", "wavemarket.com"]
+offer_zones: [["locationlabs.com", "wavemarket.com"], [["206.253.194.65", "206.253.194.97"]]]
+slave_zones: {}

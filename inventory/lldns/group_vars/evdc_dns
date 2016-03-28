@@ -1,0 +1,4 @@
+---
+master: "ns1.evdc.wavemarket.com"
+master_zones: ["evdc.wavemarket.com"]
+slave_zones: {"common_dns" : ["prod_silo_dns"]}
