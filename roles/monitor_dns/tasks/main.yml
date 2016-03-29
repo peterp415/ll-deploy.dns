@@ -1,0 +1,17 @@
+---
+
+- name: Install Nagios Plugins
+  apt: name={{ item }} state=present
+  with_items:
+    - nagios-plugins
+    - nagios-plugins-contrib
+    - bc
+
+- name: Install dns checks
+  monitoring:
+    state: present
+    advisory: true
+    check:
+      name: check_dns
+      serviceId: check_dns
+      script: "/usr/lib/nagios/plugins/check_dns -H {{ ansible_hostname }} -w 5 -c 25"  
