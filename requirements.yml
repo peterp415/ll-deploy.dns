@@ -6,6 +6,23 @@
   version: origin/master
   scm: git
 
-- src: git://git.locationlabs.com/ansible/roles/ipam
+# NOTE: the latest ipam role will be moved to:
+# ansible/roles/ipam
+- src: git://git.locationlabs.com/ig/deploy/ipam
   version: origin/develop
   scm: git
+
+- src: git://git.locationlabs.com/ansible/roles/consul
+  version: "1.5.3"
+  scm: git
+  name: consul
+
+- src: git://git.locationlabs.com/ansible/docker-roles/toolkit
+  version: "1.26"
+  scm: git
+  name: docker-toolkit
+
+- src: git://git.locationlabs.com/ig/roles/baseline_monitoring
+  version: "1.1"
+  scm: git
+  name: baseline_monitoring
