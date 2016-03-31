@@ -7,9 +7,9 @@
 
 - hosts: lldns
   roles:
-      - { role: ansible-role-bind, tags: ["dns"] }
+      - { role: ansible-role-bind, tags: ['dns'] }
       - { role: monitor_dns, tags: ['check_dns'] }
 
 - hosts: ipam
   roles:
-      - { role: ipam, tags: ["ipam"] }
+      - { role: ipam, tags: ['ipam'] }
