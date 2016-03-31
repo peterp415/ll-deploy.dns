@@ -14,4 +14,4 @@
     check:
       name: check_dns
       serviceId: check_dns
-      script: "/usr/lib/nagios/plugins/check_dns -H {{ ansible_hostname }} -w {{ monitor_dns_warn_timeout }} -c {{ monitor_dns_crit_timeout }}"
+      script: "/usr/lib/nagios/plugins/check_dns -s localhost -H {{ ansible_fqdn }} -w {{ monitor_dns_warn_timeout }} -c {{ monitor_dns_crit_timeout }}"
