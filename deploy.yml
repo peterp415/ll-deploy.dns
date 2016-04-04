@@ -1,9 +1,15 @@
 ---
 
+- hosts: all
+  roles:
+      - { role: consul, tags: ['consul'] }
+      - { role: baseline_monitoring, tags: ['checks'] }
+
 - hosts: lldns
   roles:
-      - { role: ansible-role-bind, tags: ["dns"] }
-  
+      - { role: ansible-role-bind, tags: ['dns'] }
+      - { role: monitor_dns, tags: ['check_dns'] }
+
 - hosts: ipam
   roles:
-      - { role: ipam, tags: ["ipam"] }
+      - { role: ipam, tags: ['ipam'] }
