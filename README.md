@@ -4,9 +4,11 @@
 
 This project uses a host inventory and bind role for deploying a dns
 server environment and an ipam management server.
-Currently there is only a Vagrant setup for local testing.
+
+Currently there is a Vagrant environment for local testing and a staging environment for EVDC servers.
 
 ## Getting started
+
 1. Create/activate a virtualenv for the project:
 
         mkvirtualenv dns
@@ -20,6 +22,7 @@ Currently there is only a Vagrant setup for local testing.
         ansible-galaxy install -r requirements.yml -p shared-roles --force
 
 ## Vagrant
+
 1. Bring up the Vagrant instances:
 
         vagrant up
@@ -30,6 +33,15 @@ Currently there is only a Vagrant setup for local testing.
 2. Invoke ansible to deploy bind and ipam systems:
 
         ansible-playbook -i inventory/vagrant/inventory deploy.yml
+
+## Staging (EVDC)
+
+1. Set up the staging environment by configuring servers in `inventory/staging/inventory`
+   and `inventory/staging/{host,group}_vars/`
+
+2. Invoke ansible to deploy bind and ipam systems:
+
+        ansible-playbook -i inventory/staging/inventory deploy.yml
 
 ## Project Documentation
 
