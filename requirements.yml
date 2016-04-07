@@ -1,9 +1,10 @@
 # ansible-galaxy roles
 # ansible-galaxy install -r requirements.yml -p shared-roles --force
 
-# Use version 1.5.0 because it has Joe's forwarding feature
-- src: https://github.com/resmo/ansible-role-bind
-  version: "v1.5.0"
+# Use feature/IG-1827-file-validation for file validation feature
+- src: git://git.locationlabs.com/forks/github/resmo/ansible-role-bind
+  version: origin/feature/IG-1827-file-validation
+  scm: git
   name: ansible-role-bind
 
 # NOTE: the latest ipam role will be moved to:

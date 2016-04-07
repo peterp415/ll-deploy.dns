@@ -7,6 +7,11 @@ server environment and an ipam management server.
 
 Currently there is a Vagrant environment for local testing and a staging environment for EVDC servers.
 
+Note that the bind configuration and zone files are verified during deployment by running
+`named-checkconf` and `named-checkzone` on them before they are copied into place on the servers.
+However running a playbook with the `--check` option does not let these tests run, since no files are
+actually deployed.
+
 ## Getting started
 
 1. Create/activate a virtualenv for the project:
