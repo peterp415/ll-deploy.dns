@@ -1,4 +1,4 @@
 ---
-master: "ns1.aci"
-master_zones: ["ns1.aci.sfdc.wavemarket.com"]
+master: "ns1.aci.sfdc.wavemarket.com"
+master_zones: ["aci.sfdc.wavemarket.com"]
 slave_zones: {"common_dns" : ["prod_silo_dns"]}

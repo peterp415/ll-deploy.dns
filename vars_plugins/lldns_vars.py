@@ -33,11 +33,14 @@ class VarsModule(object):
         """
         if clusters == None: 
             clusters = {}
-        for group in parent.child_groups:
-            if group.child_groups:
-                self.get_clusters (group,clusters)
-            else:
-                clusters[group.name]=group
+        if not parent.child_groups: #FIXME: kludge
+            clusters[parent.name]=parent
+        else:
+            for group in parent.child_groups:
+                if group.child_groups:
+                    self.get_clusters (group,clusters)
+                else:
+                    clusters[group.name]=group
         return clusters
 
     def get_legacy_hostvars (self, host):
@@ -124,10 +127,9 @@ class VarsModule(object):
         cluster
         """
         hostvars = self.get_legacy_hostvars (host)
+        master_zones = hostvars['master_zones'] if 'master_zones' in hostvars else []
         slave_zones = {}
-        if 'slave_zones' not in hostvars:
-            return {}
-        else:
+        if 'slave_zones' in hostvars:
             for source in hostvars['slave_zones']:
                 source_ips = []
                 for server in self.inventory.get_group(source).get_hosts(): #FIXME
@@ -136,7 +138,12 @@ class VarsModule(object):
                 for zonedef in zonedefs:
                     zones = self.expand_zonedef (host, zonedef)
                     for zone in zones:
-                        slave_zones[zone] = source_ips
+                        if zone not in master_zones:
+                            slave_zones[zone] = source_ips
+        if hostvars['master'] != hostvars['inventory_hostname']:
+            for zone in master_zones:
+                master_ip = self.inventory.get_host(hostvars['master']).get_vars()['bind_ip']
+                slave_zones[zone] = [master_ip]
         return slave_zones
     
     def run(self, host, vault_password=None):
