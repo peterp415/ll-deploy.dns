@@ -5,7 +5,7 @@ ns2.common.sfdc.wavemarket.com bind_ip="192.168.1.3"
 [aci_dns]
 ns1.aci.sfdc.wavemarket.com bind_ip="192.168.2.2"
 ns2.aci.sfdc.wavermarket.com bind_ip="192.168.2.3"
-
+#blaa
 [afm_dns]
 ns1.afm.sfdc.wavemarket.com bind_ip="192.168.3.2"
 ns2.afm.sfdc.wavemarket.com bind_ip="192.168.3.3"
