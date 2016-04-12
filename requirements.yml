@@ -1,11 +1,29 @@
 # ansible-galaxy roles
 # ansible-galaxy install -r requirements.yml -p shared-roles --force
 
-#TODO: replace later with William's ig/deploy/bind
+# Use feature/IG-1827-file-validation for file validation feature
 - src: git://git.locationlabs.com/forks/github/resmo/ansible-role-bind
-  version: origin/master
+  version: origin/feature/IG-1827-file-validation
   scm: git
+  name: ansible-role-bind
 
-- src: git://git.locationlabs.com/ansible/roles/ipam
+# NOTE: the latest ipam role will be moved to:
+# ansible/roles/ipam
+- src: git://git.locationlabs.com/ig/deploy/ipam
   version: origin/develop
   scm: git
+
+- src: git://git.locationlabs.com/ansible/roles/consul
+  version: "1.5.3"
+  scm: git
+  name: consul
+
+- src: git://git.locationlabs.com/ansible/docker-roles/toolkit
+  version: "1.26"
+  scm: git
+  name: docker-toolkit
+
+- src: git://git.locationlabs.com/ig/roles/baseline_monitoring
+  version: "1.1"
+  scm: git
+  name: baseline_monitoring

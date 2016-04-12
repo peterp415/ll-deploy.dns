@@ -1,0 +1,5 @@
+---
+# Common DNS variables
+master: "ns1.common.sfdc.vagrant"
+master_zones: '["sfdc.vagrant"]'
+slave_zones: '{"silos": ["silos"]}'

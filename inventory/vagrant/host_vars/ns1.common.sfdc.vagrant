@@ -1,0 +1,20 @@
+---
+
+# BIND deploy configuration for ns1.common.sfdc.vagrant
+
+bind_config_master_zones:
+  - name: sfdc.vagrant
+
+# Servers who slave from us
+# TODO: Get IPs of hosts via Ansible setup data
+bind_config_master_allow_transfer:
+  - '172.16.16.12'
+  - '172.16.16.21'
+  - '172.16.16.22'
+
+bind_config_slave_zones:
+
+  - name: aci.sfdc.vagrant
+    masters: [ '172.16.16.21', '172.16.16.22' ]
+    zones:
+      - aci.sfdc.vagrant

@@ -1,0 +1,5 @@
+---
+
+# Set defaults for the check_dns script warn and critical timeouts, in seconds
+monitor_dns_warn_timeout: 5
+monitor_dns_crit_timeout: 25
