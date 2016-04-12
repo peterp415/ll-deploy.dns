@@ -1,4 +1,4 @@
 ---
 master: "ns1.aci.sfdc.vagrant"
-master_zones: '["aci.sfdc.vagrant"]'
-slave_zones: '{"common":["sfdc"]}'
+master_zones: ["aci.sfdc.vagrant"]
+slave_zones: {"common":["sfdc"]}

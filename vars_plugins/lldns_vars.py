@@ -149,6 +149,8 @@ class VarsModule(object):
     def run(self, host, vault_password=None):
         hostvars = self.get_legacy_hostvars (host)
         output = {}
+        if 'dns_world' not in hostvars: #FIXME
+            return {}
         dns_world = hostvars['dns_world']
         root = self.inventory.get_group(dns_world)
         clusters = self.get_clusters (root)
