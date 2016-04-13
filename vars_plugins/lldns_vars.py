@@ -121,6 +121,38 @@ class VarsModule(object):
         master_zones = self.get_master_zones (host)
         return True if zone in master_zones else False
 
+
+    def merge_bind_config_zone (self, host, zone_var, zone_dict):
+        """
+        Merge content into bind_config_*_zones hostvar
+        FIXME This has unusual behavior that should be fixed or documented
+        """
+        vars = host.get_vars()
+        bind_config_zones = vars.get(zone_var,[])
+        bind_config_zone = {}
+        zone_index = None
+        for index in range (0, len(bind_config_zones)):
+            mzone = bind_config_zones[index] #FIXME: unhelpful name
+            if mzone['name'] == zone_dict['name']:
+                zone_index = index
+                bind_config_zone = mzone
+                break;
+        for key in zone_dict:
+            bind_config_zone.setdefault(key, zone_dict[key])
+        bind_config_zone.setdefault('allow_transfer', [])
+        if 'allow_transfer' in zone_dict:
+            for ip in zone_dict['allow_transfer']:
+                if ip not in bind_config_zone['allow_transfer']:
+                    bind_config_zone['allow_transfer'].append(ip)
+        if zone_index != None:
+            bind_config_zones[zone_index] = bind_config_zone
+        else:
+            bind_config_zones.append(bind_config_zone)
+        host.set_variable(zone_var, bind_config_zones)
+        return None
+
+
+                    
     def allow_xfer (self, from_host, to_host, zone):
         """
         Inject configuration to allow-transfer
@@ -129,8 +161,10 @@ class VarsModule(object):
         print (masterp)
         from_vars=from_host.get_vars()
         to_vars=to_host.get_vars()
-        if masterp:
-            bind_config_master_zones=from_vars.get('bind_config_master_zones', [])
+        zones_var = 'bind_config_master_zones' if masterp else 'bind_config_slave_zones'
+        print ("Adding allow_transfer for {} from {} to {} for {}".format(zones_var,from_host.get_name(), to_host.get_name(), zone))
+        if True:  #masterp: #FIXME
+            bind_config_master_zones=from_vars.get(zones_var, []) #FIXME: This is now misleadingly named
             master_zone={}
             zone_index=None
             for index in range(0, len(bind_config_master_zones)):
@@ -150,7 +184,7 @@ class VarsModule(object):
                 else:
                     bind_config_master_zones.append(master_zone)
                 print ("FOOOOOO!!!!")
-                from_host.set_variable ('bind_config_master_zones', bind_config_master_zones)
+                from_host.set_variable (zones_var, bind_config_master_zones)
         else:
             print ("SLAVE!! {} from {} to {}".format(zone, from_host.get_name(), to_host.get_name()))
             return None #FIXME allow xfer of slaved zones
@@ -231,9 +265,11 @@ class VarsModule(object):
         host_master_zones = self.get_master_zones (host)
         host_slave_zones = self.get_slave_zones (host)
         self.inject_allow_xfers (host, host_slave_zones)
+        for zone in host_slave_zones:
+            self.merge_bind_config_zone (host, 'bind_config_slave_zones', zone)
         return {"lldns" : clusters,
-                "host_master_zones" : host_master_zones,
-                "bind_config_slave_zones" : host_slave_zones }
+                "host_master_zones" : host_master_zones}
+                #bind_config_slave_zones" : host_slave_zones }
 
     def get_host_vars(self, host, vault_password=None):
         return {}
