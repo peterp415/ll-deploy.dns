@@ -141,8 +141,8 @@ class VarsModule(object):
                 break;
         for key in zone_dict:
             bind_config_zone.setdefault(key, zone_dict[key])
-        bind_config_zone.setdefault('allow_transfer', [])
         if 'allow_transfer' in zone_dict:
+            bind_config_zone.setdefault('allow_transfer', [])
             for ip in zone_dict['allow_transfer']:
                 if ip not in bind_config_zone['allow_transfer']:
                     bind_config_zone['allow_transfer'].append(ip)
