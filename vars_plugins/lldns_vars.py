@@ -49,7 +49,6 @@ class VarsModule(object):
         """
         return combine_vars (host.get_group_vars(), host.get_vars())
 
-
     def get_world_group (self, host):
         """
         Returns the group object for the dns world of a host
@@ -71,6 +70,23 @@ class VarsModule(object):
         """
         world_group = self.get_world_group(host)
         return self.expand_group (world_group)
+
+    def get_world_hosts (self, host):
+        """
+        Returns a list of host objects in the same DNS world as host
+        """
+        world_group = self.get_world_group (host)
+        return world_group.get_hosts()
+    
+    def get_host_by_bind_ip (self, host, ip):
+        """
+        Return a host object matching a bind_ip or None if none exists
+        """
+        world_hosts = self.get_world_hosts (host)
+        for world_host in world_hosts:
+            if world_host.get_vars()['bind_ip'] == ip:
+                return world_host
+        return None #FIXME
 
     def is_cluster (self, group):
         """
@@ -97,6 +113,47 @@ class VarsModule(object):
             for zone in hostvars['master_zones']:
                 master_zones[zone] = [] #FIXME
         return master_zones
+
+    def is_master (self, host, zone):
+        """
+        Returns True if host is master for a zone, else False
+        """
+        master_zones = self.get_master_zones (host)
+        return True if zone in master_zones else False
+
+    def allow_xfer (self, from_host, to_host, zone):
+        """
+        Inject configuration to allow-transfer
+        """
+        masterp=self.is_master (from_host, zone)
+        print (masterp)
+        from_vars=from_host.get_vars()
+        to_vars=to_host.get_vars()
+        if masterp:
+            bind_config_master_zones=from_vars.get('bind_config_master_zones', [])
+            master_zone={}
+            zone_index=None
+            for index in range(0, len(bind_config_master_zones)):
+                #for zone in bind_config_master_zones:
+                mzone=bind_config_master_zones[index]
+                if mzone['name'] == zone:
+                    zone_index = index
+                    master_zone=mzone
+                    break;
+            if not master_zone:
+                master_zone['name'] = zone
+            master_zone.setdefault ('allow_transfer', [])
+            if to_vars['bind_ip'] not in master_zone['allow_transfer']:
+                master_zone['allow_transfer'].append(to_vars['bind_ip'])
+                if zone_index != None:
+                    bind_config_master_zones[zone_index] = master_zone
+                else:
+                    bind_config_master_zones.append(master_zone)
+                print ("FOOOOOO!!!!")
+                from_host.set_variable ('bind_config_master_zones', bind_config_master_zones)
+        else:
+            print ("SLAVE!! {} from {} to {}".format(zone, from_host.get_name(), to_host.get_name()))
+            return None #FIXME allow xfer of slaved zones
 
     def expand_zonedef (self, host, root):
         """
@@ -128,23 +185,39 @@ class VarsModule(object):
         """
         hostvars = self.get_legacy_hostvars (host)
         master_zones = hostvars['master_zones'] if 'master_zones' in hostvars else []
-        slave_zones = {}
+        slave_zones = []
         if 'slave_zones' in hostvars:
             for source in hostvars['slave_zones']:
+                slave_def = {'name':'', 'masters':[], 'zones':[]} 
                 source_ips = []
-                for server in self.inventory.get_group(source).get_hosts(): #FIXME
+                print (host.get_name())
+                print (source)
+                for server in self.inventory.get_group(source).get_hosts(): #FIXME input validation
+                    print (server.get_vars())
                     source_ips.append (server.get_vars()['bind_ip']) #FIXME error checking
                 zonedefs = (hostvars['slave_zones'])[source]
                 for zonedef in zonedefs:
                     zones = self.expand_zonedef (host, zonedef)
                     for zone in zones:
                         if zone not in master_zones:
-                            slave_zones[zone] = source_ips
+                            slave_def['masters'] = source_ips
+                            slave_def['zones'] = [zone]
+                            slave_def['name'] = zone
+                            slave_zones.append (slave_def) # [zone] = source_ips
+        print (hostvars)
         if hostvars['master'] != hostvars['inventory_hostname']:
             for zone in master_zones:
                 master_ip = self.inventory.get_host(hostvars['master']).get_vars()['bind_ip']
-                slave_zones[zone] = [master_ip]
+                slave_zones.append ({'name':zone, 'zones':[zone], 'masters':[master_ip]})
+                # slave_zones[zone] = [master_ip]
         return slave_zones
+
+    def inject_allow_xfers (self, host, slave_zones):
+        for slave_zone in slave_zones:
+            for master_ip in slave_zone['masters']:
+                master_host = self.get_host_by_bind_ip (host, master_ip)
+                self.allow_xfer (master_host, host, slave_zone['name'])
+        return None #FIXME
     
     def run(self, host, vault_password=None):
         hostvars = self.get_legacy_hostvars (host)
@@ -157,9 +230,10 @@ class VarsModule(object):
         self.get_world_groups (host)
         host_master_zones = self.get_master_zones (host)
         host_slave_zones = self.get_slave_zones (host)
+        self.inject_allow_xfers (host, host_slave_zones)
         return {"lldns" : clusters,
                 "host_master_zones" : host_master_zones,
-                "host_slave_zones" : host_slave_zones }
+                "bind_config_slave_zones" : host_slave_zones }
 
     def get_host_vars(self, host, vault_password=None):
         return {}
