@@ -112,7 +112,6 @@ class VarsModule(object):
             for zone in hostvars['master_zones']:
                 zone_dict = { 'name' : zone }
                 master_zones.append(zone_dict)
-                # master_zones[zone] = [] #FIXME
         return master_zones
 
     def is_master (self, host, zone):
@@ -122,12 +121,8 @@ class VarsModule(object):
         master_zones = self.get_master_zones (host)
         for master_zone in master_zones:
             if master_zone['name'] == zone:
-                print ("is_master for {} on {} returns True".format(zone,host.get_name()))
                 return True
-        print ("is_master for {} on {} returns False".format(zone,host.get_name()))
         return False
-        #return True if zone in master_zones else False
-
 
     def merge_bind_config_zone (self, host, zone_var, zone_dict):
         """
@@ -166,11 +161,9 @@ class VarsModule(object):
         Actually this latter defect should be fixed in the merge "function"
         """
         masterp=self.is_master (from_host, zone)
-        print (masterp)
         from_vars=from_host.get_vars()
         to_vars=to_host.get_vars()
         zones_var = 'bind_config_master_zones' if masterp else 'bind_config_slave_zones'
-        print ("Adding allow_transfer for {} from {} to {} for {}".format(zones_var,from_host.get_name(), to_host.get_name(), zone))
         zone_dict = { 'allow_transfer' : [to_vars['bind_ip']],
                        'name' : zone,
                        'zones' : [zone] }
@@ -197,7 +190,7 @@ class VarsModule(object):
             zones = [root]
         return zones
 
-    def get_slave_zones (self, host): #FIXME: do not slave own zones. do slave zones in own cluster if not master
+    def get_slave_zones (self, host):
         """
         Get zones slaved by a host.
         Returns dictionary with zone as key and list of IPs as value
@@ -211,10 +204,7 @@ class VarsModule(object):
             for source in hostvars['slave_zones']:
                 slave_def = {'name':'', 'masters':[], 'zones':[]} 
                 source_ips = []
-                print (host.get_name())
-                print (source)
                 for server in self.inventory.get_group(source).get_hosts(): #FIXME input validation
-                    print (server.get_vars())
                     source_ips.append (server.get_vars()['bind_ip']) #FIXME error checking
                 zonedefs = (hostvars['slave_zones'])[source]
                 for zonedef in zonedefs:
@@ -224,13 +214,11 @@ class VarsModule(object):
                             slave_def['masters'] = source_ips
                             slave_def['zones'] = [zone]
                             slave_def['name'] = zone
-                            slave_zones.append (slave_def) # [zone] = source_ips
-        print (hostvars)
+                            slave_zones.append (slave_def)
         if hostvars['master'] != hostvars['inventory_hostname']:
             for zone in master_zones:
                 master_ip = self.inventory.get_host(hostvars['master']).get_vars()['bind_ip']
                 slave_zones.append ({'name':zone, 'zones':[zone], 'masters':[master_ip]})
-                # slave_zones[zone] = [master_ip]
         return slave_zones
 
     def inject_allow_xfers (self, host, slave_zones):
