@@ -1,4 +1,0 @@
----
-master: "ns1.tfw.sfdc.wavemarket.com"
-master_zones: ["tfw.sfdc.wavemarket.com"]
-slave_zones: {"common_dns": ["prod_silo_dns"]}
