@@ -102,16 +102,17 @@ class VarsModule(object):
         """
         Get zones for which a host is master. This is the contents of master_zones
         if the host is master for the cluster, or otherwise empty.
-        Returns dictionary of zones for which host is master. Value of dictionary
-        entries for now is [] (empty list)
+        Returns list of zones, each entry a dict with key: name, value zone
         """
-        master_zones = {}
+        master_zones = []
         hostvars = self.get_legacy_hostvars (host)
         if (('master' in hostvars) and
             ('master_zones' in hostvars) and
             (hostvars['master'] == hostvars['inventory_hostname'])):
             for zone in hostvars['master_zones']:
-                master_zones[zone] = [] #FIXME
+                zone_dict = { 'name' : zone }
+                master_zones.append(zone_dict)
+                # master_zones[zone] = [] #FIXME
         return master_zones
 
     def is_master (self, host, zone):
@@ -119,7 +120,13 @@ class VarsModule(object):
         Returns True if host is master for a zone, else False
         """
         master_zones = self.get_master_zones (host)
-        return True if zone in master_zones else False
+        for master_zone in master_zones:
+            if master_zone['name'] == zone:
+                print ("is_master for {} on {} returns True".format(zone,host.get_name()))
+                return True
+        print ("is_master for {} on {} returns False".format(zone,host.get_name()))
+        return False
+        #return True if zone in master_zones else False
 
 
     def merge_bind_config_zone (self, host, zone_var, zone_dict):
@@ -151,11 +158,12 @@ class VarsModule(object):
         host.set_variable(zone_var, bind_config_zones)
         return None
 
-
                     
     def allow_xfer (self, from_host, to_host, zone):
         """
         Inject configuration to allow-transfer
+        FIXME: Has other evil behavior and makes assumptions re: 1 zone per zonedef
+        Actually this latter defect should be fixed in the merge "function"
         """
         masterp=self.is_master (from_host, zone)
         print (masterp)
@@ -163,31 +171,10 @@ class VarsModule(object):
         to_vars=to_host.get_vars()
         zones_var = 'bind_config_master_zones' if masterp else 'bind_config_slave_zones'
         print ("Adding allow_transfer for {} from {} to {} for {}".format(zones_var,from_host.get_name(), to_host.get_name(), zone))
-        if True:  #masterp: #FIXME
-            bind_config_master_zones=from_vars.get(zones_var, []) #FIXME: This is now misleadingly named
-            master_zone={}
-            zone_index=None
-            for index in range(0, len(bind_config_master_zones)):
-                #for zone in bind_config_master_zones:
-                mzone=bind_config_master_zones[index]
-                if mzone['name'] == zone:
-                    zone_index = index
-                    master_zone=mzone
-                    break;
-            if not master_zone:
-                master_zone['name'] = zone
-            master_zone.setdefault ('allow_transfer', [])
-            if to_vars['bind_ip'] not in master_zone['allow_transfer']:
-                master_zone['allow_transfer'].append(to_vars['bind_ip'])
-                if zone_index != None:
-                    bind_config_master_zones[zone_index] = master_zone
-                else:
-                    bind_config_master_zones.append(master_zone)
-                print ("FOOOOOO!!!!")
-                from_host.set_variable (zones_var, bind_config_master_zones)
-        else:
-            print ("SLAVE!! {} from {} to {}".format(zone, from_host.get_name(), to_host.get_name()))
-            return None #FIXME allow xfer of slaved zones
+        zone_dict = { 'allow_transfer' : [to_vars['bind_ip']],
+                       'name' : zone,
+                       'zones' : [zone] }
+        self.merge_bind_config_zone (from_host, zones_var, zone_dict)
 
     def expand_zonedef (self, host, root):
         """
