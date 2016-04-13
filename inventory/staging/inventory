@@ -1,9 +1,17 @@
-[evdc]
-ns1-evdc.evdc.wavemarket.com
-ns2-evdc.evdc.wavemarket.com
+[aci_dns]
+ns1-aci.evdc.wavemarket.com bind_ip='172.28.103.16'
+ns2-aci.evdc.wavemarket.com bind_ip='172.28.103.17'
+
+[prod_silo_dns:children]
+aci_dns
+common_dns
 
 [lldns:children]
-evdc
+prod_silo_dns
+
+[lldns:vars]
+dns_world="lldns"
+
 
 [ipam]
 # ipam in staging is still TBD, will be something like

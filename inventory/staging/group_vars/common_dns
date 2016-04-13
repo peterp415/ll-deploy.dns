@@ -1,0 +1,5 @@
+---
+master: "ns1-common.evdc.wavemarket.com"
+master_zones: ["common.sfdc.wavemarket.com"]
+slave_zones:
+    aci_dns: ["aci_dns"]
