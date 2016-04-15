@@ -1,8 +1,9 @@
 # ansible-galaxy roles
 # ansible-galaxy install -r requirements.yml -p shared-roles --force
 
+# Use feature/IG-855 since template changes are being made there
 - src: git://git.locationlabs.com/forks/github/resmo/ansible-role-bind
-  version: origin/develop
+  version: origin/feature/IG-855_templatehacks
   scm: git
   name: ansible-role-bind
 
