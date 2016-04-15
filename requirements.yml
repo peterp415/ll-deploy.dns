@@ -1,9 +1,8 @@
 # ansible-galaxy roles
 # ansible-galaxy install -r requirements.yml -p shared-roles --force
 
-# Use feature/IG-1827-file-validation for file validation feature
 - src: git://git.locationlabs.com/forks/github/resmo/ansible-role-bind
-  version: origin/feature/IG-1827-file-validation
+  version: origin/develop
   scm: git
   name: ansible-role-bind
 
