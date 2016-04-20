@@ -25,6 +25,7 @@
     register: zone_digest
     with_items: '{{ master_zones }}'
     changed_when: False
+    failed_when: '"rc=0" not in zone_digest.stdout'
 
   # Note if needed the raw results array is visible with debug: var=zone_digest.results
 
