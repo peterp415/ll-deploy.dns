@@ -38,8 +38,6 @@
   - name: Check zone SOA serial
     shell: |
       dig @localhost -t soa +short {{ item }} 2>/dev/null | awk '{print $3}'
-    args:
-      executable: /bin/bash
     register: zone_soa
     with_items: '{{ master_zones }}'
     changed_when: False
@@ -52,8 +50,9 @@
   # You would think you could do something like
   #   debug: msg="cmd {{ item.cmd }} returned {{ item.stdout }}"
   #   with_items: '{{ zone_digest.results }}'
-  # but with_items dumps the full zone_digest structure
-  # every time.  See https://github.com/ansible/ansible/issues/5564
+  # but using debug with with_items dumps the whole item (albeit including
+  # your msg as an attribute) every time.
+  # See https://github.com/ansible/ansible/issues/5564
   #
   # Another approach is to use map like
   #   debug: msg="Results  {{ zone_digest.results|map(attribute='stdout')|list }}"
