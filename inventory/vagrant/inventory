@@ -1,14 +1,17 @@
 [common]
-ns1.common.sfdc.vagrant
-ns2.common.sfdc.vagrant
+ns1.common.sfdc.vagrant bind_ip='172.16.16.11'
+ns2.common.sfdc.vagrant bind_ip='172.16.16.12'
 
 [aci]
-ns1.aci.sfdc.vagrant
-ns2.aci.sfdc.vagrant
+ns1.aci.sfdc.vagrant bind_ip='172.16.16.21'
+ns2.aci.sfdc.vagrant bind_ip='172.16.16.22'
+
+[silos:children]
+aci
 
 [sfdc:children]
 common
-aci
+silos
 
 [lldns:children]
 sfdc
