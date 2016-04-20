@@ -1,0 +1,13 @@
+[evdc_dns]
+ns1-evdc.evdc.wavemarket.com bind_ip='172.28.103.12'
+ns2-evdc.evdc.wavemarket.com bind_ip='172.28.103.13'
+
+[lldns:children]
+evdc_dns
+
+[lldns:vars]
+dns_world="lldns"
+
+[ipam]
+# ipam in staging is still TBD, will be something like
+# ipam1.evdc
