@@ -16,7 +16,7 @@ class VarsModule(object):
         Recursively returns a list of all child groups of a group
         This should probably not be used
         """
-        if groups == None: 
+        if groups == None:
             groups = []
         for group in parent.child_groups:
             groups.append (group)
@@ -25,13 +25,13 @@ class VarsModule(object):
             else:
                 groups.append (group)
         return groups
-        
+
     def get_clusters (self, parent, clusters=None):
         """
         Return a dictionary of all clusters within a group.
         Key is name. Value is group object
         """
-        if clusters == None: 
+        if clusters == None:
             clusters = {}
         if not parent.child_groups: #FIXME: kludge
             clusters[parent.name]=parent
@@ -77,7 +77,7 @@ class VarsModule(object):
         """
         world_group = self.get_world_group (host)
         return world_group.get_hosts()
-    
+
     def get_host_by_bind_ip (self, host, ip):
         """
         Return a host object matching a bind_ip or None if none exists
@@ -97,7 +97,7 @@ class VarsModule(object):
             return False
         else:
             return True if 'master' in group.get_vars() else False
-    
+
     def get_master_zones (self, host):
         """
         Get zones for which a host is master. This is the contents of master_zones
@@ -143,9 +143,15 @@ class VarsModule(object):
             bind_config_zone.setdefault(key, zone_dict[key])
         if 'allow_transfer' in zone_dict:
             bind_config_zone.setdefault('allow_transfer', [])
-            for ip in zone_dict['allow_transfer']:
+            # If setting allow_transfer at all, we want to include localhost for diagnostics
+            for ip in zone_dict['allow_transfer'] + ['127.0.0.1']:
                 if ip not in bind_config_zone['allow_transfer']:
                     bind_config_zone['allow_transfer'].append(ip)
+        if 'also_notify' in zone_dict:
+            bind_config_zone.setdefault('also_notify', [])
+            for ip in zone_dict['also_notify']:
+                if ip not in bind_config_zone['also_notify']:
+                    bind_config_zone['also_notify'].append(ip)
         if zone_index != None:
             bind_config_zones[zone_index] = bind_config_zone
         else:
@@ -153,10 +159,10 @@ class VarsModule(object):
         host.set_variable(zone_var, bind_config_zones)
         return None
 
-                    
+
     def allow_xfer (self, from_host, to_host, zone):
         """
-        Inject configuration to allow-transfer
+        Inject configuration for allow-transfer and also-notify
         FIXME: Has other evil behavior and makes assumptions re: 1 zone per zonedef
         Actually this latter defect should be fixed in the merge "function"
         """
@@ -167,6 +173,9 @@ class VarsModule(object):
         zone_dict = { 'allow_transfer' : [to_vars['bind_ip']],
                        'name' : zone,
                        'zones' : [zone] }
+        if masterp:
+            # For zone masters, also set also_notify to notify the slaves
+            zone_dict['also_notify'] = [to_vars['bind_ip']]
         self.merge_bind_config_zone (from_host, zones_var, zone_dict)
 
     def expand_zonedef (self, host, root):
@@ -202,7 +211,7 @@ class VarsModule(object):
         slave_zones = []
         if 'slave_zones' in hostvars:
             for source in hostvars['slave_zones']:
-                slave_def = {'name':'', 'masters':[], 'zones':[]} 
+                slave_def = {'name':'', 'masters':[], 'zones':[]}
                 source_ips = []
                 for server in self.inventory.get_group(source).get_hosts(): #FIXME input validation
                     source_ips.append (server.get_vars()['bind_ip']) #FIXME error checking
@@ -227,7 +236,7 @@ class VarsModule(object):
                 master_host = self.get_host_by_bind_ip (host, master_ip)
                 self.allow_xfer (master_host, host, slave_zone['name'])
         return None #FIXME
-    
+
     def run(self, host, vault_password=None):
         hostvars = self.get_legacy_hostvars (host)
         output = {}
