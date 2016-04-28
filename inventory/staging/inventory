@@ -6,12 +6,17 @@ ns2-aci.evdc.wavemarket.com bind_ip='172.28.103.17'
 ns1-common.evdc.wavemarket.com bind_ip='172.28.103.10'
 ns2-common.evdc.wavemarket.com bind_ip='172.28.103.11'
 
+[public_dns]
+ns1-pub.evdc.wavemarket.com bind_ip='172.28.103.24'
+ns2-pub.evdc.wavemarket.com bind_ip='172.28.103.25'
+
 [prod_silo_dns:children]
 aci_dns
 common_dns
 
 [lldns:children]
 prod_silo_dns
+public_dns
 
 [lldns:vars]
 dns_world="lldns"

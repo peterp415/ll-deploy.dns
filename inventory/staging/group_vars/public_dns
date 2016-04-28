@@ -1,0 +1,5 @@
+---
+master: "ns1-pub.evdc.wavemarket.com"
+master_zones: ["locationlabs.com"]
+# These servers use a separate set of zone files!
+bind_masterzones_local_path: "masters.public"
