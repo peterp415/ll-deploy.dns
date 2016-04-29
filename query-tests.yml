@@ -11,7 +11,7 @@
 
 # Using the DNS cluster group here
 # Perhaps prompt for the group or iterate a higher-level group
-- hosts: evdc_dns
+- hosts: common_dns:aci_dns:public_dns
   tasks:
 
   # List zones from dns servers and compute a zone data digest

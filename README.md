@@ -41,12 +41,21 @@ actually deployed.
 
 ## Staging (EVDC)
 
-1. Set up the staging environment by configuring servers in `inventory/staging/inventory`
-   and `inventory/staging/{host,group}_vars/`
+1. Set up the staging environment by configuring:
+
+   - Groups of servers in `inventory/staging/inventory`
+   - Master zone servers and zone slaving relationships in `inventory/staging/group_vars/<group>`
 
 2. Invoke ansible to deploy bind and ipam systems:
 
         ansible-playbook -i inventory/staging/inventory deploy.yml
+
+3. Deploy Consul monitoring agents.  This currently needs Ansible 1.9 and
+   a separate `ansible.cfg` that excludes the vars plugin:
+
+        mkvirtualenv ansible19
+        pip install ansible==1.9.4
+        ANSIBLE_CONFIG=consul_ansible.cfg ansible-playbook -i inventory/staging/inventory consul_deploy.yml
 
 ## Project Documentation
 
