@@ -2,6 +2,7 @@ ansible.log*
 ansible-log
 galaxy-roles/
 shared-roles/
+masters/
 
 .DS_Store
 
