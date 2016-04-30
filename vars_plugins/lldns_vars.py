@@ -2,6 +2,8 @@ from __future__ import (absolute_import, division, print_function)
 from ansible.utils.vars import combine_vars
 __metaclass__ = type
 
+# For debugging:
+# import epdb
 
 class VarsModule(object):
 
@@ -206,24 +208,29 @@ class VarsModule(object):
         This requires for now that the slaving source specification be a
         cluster
         """
+        #epdb.st() # DEBUG breakpoint
         hostvars = self.get_legacy_hostvars (host)
         master_zones = hostvars['master_zones'] if 'master_zones' in hostvars else []
+        # Get slave relationships from hosts in groups listed in the slave_zones group var
         slave_zones = []
         if 'slave_zones' in hostvars:
             for source in hostvars['slave_zones']:
-                slave_def = {'name':'', 'masters':[], 'zones':[]}
                 source_ips = []
+                # get source IPs for all servers in source group
                 for server in self.inventory.get_group(source).get_hosts(): #FIXME input validation
                     source_ips.append (server.get_vars()['bind_ip']) #FIXME error checking
                 zonedefs = (hostvars['slave_zones'])[source]
+                # Go through list of zonedefs and build up slave list
                 for zonedef in zonedefs:
                     zones = self.expand_zonedef (host, zonedef)
                     for zone in zones:
                         if zone not in master_zones:
+                            slave_def = {'name':'', 'masters':[], 'zones':[]}
                             slave_def['masters'] = source_ips
                             slave_def['zones'] = [zone]
                             slave_def['name'] = zone
                             slave_zones.append (slave_def)
+        # Add slave relationships within our group
         if hostvars['master'] != hostvars['inventory_hostname']:
             for zone in master_zones:
                 master_ip = self.inventory.get_host(hostvars['master']).get_vars()['bind_ip']
@@ -252,8 +259,8 @@ class VarsModule(object):
         for zone in host_slave_zones:
             self.merge_bind_config_zone (host, 'bind_config_slave_zones', zone)
         return {"lldns" : clusters,
-                "host_master_zones" : host_master_zones}
-                #bind_config_slave_zones" : host_slave_zones }
+                "host_master_zones" : host_master_zones,
+                "host_slave_zones" : host_slave_zones }
 
     def get_host_vars(self, host, vault_password=None):
         return {}
