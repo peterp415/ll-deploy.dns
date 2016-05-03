@@ -1,0 +1,35 @@
+---
+master: "ns1.engr.wavemarket.com"
+master_zones:
+  - "engr.wavemarket.com"
+  - "locationlabs.com"
+  - "hq.locationlabs.com"
+  - "hq.wavemarket.com"
+  - "hq.ll"
+  - "evidc.locationlabs.com"
+  - "evidc.wavemarket.com"
+  - "evidc.ll"
+  - "in.locationlabs.com"
+  - "38.10.in-addr.arpa"
+  - "39.10.in-addr.arpa"
+
+slave_zones: {"evdc_dns" : ["evdc_dns"]}
+
+# Allow recursion, which now defaults to no
+bind_config_recursion: "True"
+
+# Servers who slave from us
+bind_config_master_allow_transfer:
+  - '127.0.0.1'
+
+# Forwarded zones
+bind_config_forward_zones:
+
+  - name: domains forwarded from avg
+    forwarders: [ '10.33.4.12', '10.32.162.11' ]
+    forward: only
+    zones:
+      - grisoft.cz
+      - avg.com
+      - 10.in-addr.arpa
+      - 200.168.192.in-addr.arpa
