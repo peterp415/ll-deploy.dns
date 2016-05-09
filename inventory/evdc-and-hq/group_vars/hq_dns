@@ -33,3 +33,22 @@ bind_config_forward_zones:
       - avg.com
       - 10.in-addr.arpa
       - 200.168.192.in-addr.arpa
+
+  - name: domains forwarded from cobbler.common
+    forwarders: [ '10.252.20.11' ]
+    forward: only
+    zones:
+      - 168.192.in-addr.arpa
+      - aci.mgmt.sfdc.wavemarket.com
+      - aci.sfdc.wavemarket.com
+      - common.sfdc.wavemarket.com
+      - sfp.sfdc.wavemarket.com
+      - sfdc.wavemarket.com
+      - afm.sfdc.wavemarket.com
+      - 109.10.in-addr.arpa
+      - 249.10.in-addr.arpa
+      - 16.172.in-addr.arpa
+      - 17.172.in-addr.arpa
+      - 18.172.in-addr.arpa
+      - 19.172.in-addr.arpa
+      - 20.172.in-addr.arpa
