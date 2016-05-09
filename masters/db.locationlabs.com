@@ -1,14 +1,14 @@
 $ORIGIN .
 $TTL 300	; 5 minutes
-locationlabs.com	IN SOA	hq-ad-1.locationlabs.com. hostmaster.locationlabs.com. (
-				112410     ; serial
+locationlabs.com	IN SOA	ns1.locationlabs.com. hostmaster.locationlabs.com. (
+				112474     ; serial
 				900        ; refresh (15 minutes)
 				600        ; retry (10 minutes)
 				86400      ; expire (1 day)
 				300        ; minimum (5 minutes)
 				)
-			NS	hq-ad-1.locationlabs.com.
-			NS	hq-ad-2.locationlabs.com.
+			NS	ns1.locationlabs.com.
+			NS	ns2.locationlabs.com.
 $TTL 600	; 10 minutes
 			A	172.18.64.2
 			A	172.18.64.3
@@ -17,14 +17,13 @@ $TTL 600	; 10 minutes
 $TTL 3600	; 1 hour
 			MX	10 mail.us.avg.com.
 $TTL 600	; 10 minutes
-			AAAA	fd0d:acc:b2ca:0:184d:80fe:425c:5f8e
 			AAAA	fdd0:96d4:3d5f:0:184d:80fe:425c:5f8e
 			AAAA	fdd0:96d4:3d5f:0:789e:e236:dee6:59d5
 $ORIGIN locationlabs.com.
 $TTL 3600	; 1 hour
 3pg-api			CNAME	3pg-api.tfw.sfdc.wavemarket.com.
 _amazonses		TXT	"KxI41ZTFg+jUo4A05z59+djSKVeD0t9zgPIuIQNsuyw="
-_msdcs			NS	hq-ad-1
+_msdcs			NS	ns1
 $ORIGIN _tcp.Default-First-Site-Name._sites.locationlabs.com.
 $TTL 600	; 10 minutes
 _gc			SRV	0 100 3268 hq-ad-1.locationlabs.com.
@@ -95,11 +94,11 @@ $TTL 300	; 5 minutes
 aci-dev-docker		A	66.211.110.52
 $TTL 3600	; 1 hour
 aci-dev-services	A	66.211.104.171
-aci-feature-core	CNAME	aci-feature-core.evdc.wavemarket.com.
 $TTL 300	; 5 minutes
+aci-feature-core	A	66.211.110.45
 aci-feature-docker	CNAME	aci-feature-docker.evdc.wavemarket.com.
+aci-feature-services	A	66.211.110.46
 $TTL 3600	; 1 hour
-aci-feature-services	CNAME	aci-feature-services.evdc.wavemarket.com.
 aci-incoming-3pp	A	66.171.207.231
 aci-lab-core		A	69.25.109.170
 aci-lab-core1		A	69.25.109.170
@@ -125,8 +124,12 @@ aci-prod-cdr-pub-core	CNAME	aci-prod-cdr-pub-core.aci.sfdc.wavemarket.com.
 aci-prod-contact-api	CNAME	aci-prod-contact-api.aci.sfdc.wavemarket.com.
 aci-prod-core-account	CNAME	aci-prod-core-account.aci.sfdc.wavemarket.com.
 aci-prod-core-api	A	66.171.207.230
+$TTL 300	; 5 minutes
+aci-prod-core-rest-api	CNAME	aci-prod-core-rest-api.aci.sfdc.wavemarket.com.
+$TTL 3600	; 1 hour
 aci-prod-core-scheduler-q CNAME	aci-prod-core-scheduler-q.aci.sfdc.wavemarket.com.
 $TTL 300	; 5 minutes
+aci-prod-dataplan	CNAME	aci-prod-dataplan.aci.sfdc.wavemarket.com.
 aci-prod-es-logstash1	CNAME	aci-prod-es-logstash1.aci.sfdc.wavemarket.com.
 aci-prod-es-logstash2	CNAME	aci-prod-es-logstash2.aci.sfdc.wavemarket.com.
 aci-prod-es-logstash3	CNAME	aci-prod-es-logstash3.aci.sfdc.wavemarket.com.
@@ -324,7 +327,6 @@ DomainDnsZones		A	172.18.64.2
 			A	172.18.64.3
 			A	192.168.12.1
 			A	192.168.12.2
-			AAAA	fd0d:acc:b2ca:0:184d:80fe:425c:5f8e
 			AAAA	fdd0:96d4:3d5f:0:184d:80fe:425c:5f8e
 			AAAA	fdd0:96d4:3d5f:0:789e:e236:dee6:59d5
 $ORIGIN DomainDnsZones.locationlabs.com.
@@ -375,7 +377,7 @@ elvs			A	174.129.204.181
 email			CNAME	sendgrid.net.
 engblog			CNAME	bugz.engr.wavemarket.com.
 evan-osx		A	192.168.7.191
-evdc			NS	hq-ad-1
+evdc			NS	ns1
 familybasedemo		A	69.25.109.231
 $TTL 300	; 5 minutes
 familysafety-sprint	A	66.171.207.217
@@ -402,7 +404,6 @@ ForestDnsZones		A	172.18.64.2
 			A	172.18.64.3
 			A	192.168.12.1
 			A	192.168.12.2
-			AAAA	fd0d:acc:b2ca:0:184d:80fe:425c:5f8e
 			AAAA	fdd0:96d4:3d5f:0:184d:80fe:425c:5f8e
 			AAAA	fdd0:96d4:3d5f:0:789e:e236:dee6:59d5
 $ORIGIN ForestDnsZones.locationlabs.com.
@@ -443,7 +444,6 @@ hq-ad-1			A	172.18.64.2
 			AAAA	fdd0:96d4:3d5f:0:789e:e236:dee6:59d5
 hq-ad-2			A	172.18.64.3
 			A	192.168.12.2
-			AAAA	fd0d:acc:b2ca:0:184d:80fe:425c:5f8e
 			AAAA	fdd0:96d4:3d5f:0:184d:80fe:425c:5f8e
 $TTL 1200	; 20 minutes
 HQ-EDGE-1		A	172.18.99.246
@@ -472,7 +472,7 @@ hq-wsus-1		A	192.168.13.3
 $TTL 300	; 5 minutes
 idm			CNAME	ldap-prod-parent.engr.wavemarket.com.
 $TTL 0	; 0 seconds
-in			NS	hq-ad-1
+in			NS	ns1
 $TTL 3600	; 1 hour
 indigo-dev1		A	66.211.104.196
 $TTL 300	; 5 minutes
@@ -546,6 +546,10 @@ notify-stable-lp	A	172.26.179.254
 notify-staging		A	69.25.109.127
 notify-staging-lp	CNAME	notify-staging-lp.sfdc.wavemarket.com.
 npmjs			A	192.168.2.139
+$TTL 300	; 5 minutes
+ns1			A	192.168.2.19
+ns2			A	10.39.4.109
+$TTL 3600	; 1 hour
 nsfv			A	192.168.2.37
 old-ota			A	66.211.104.160
 openfire-test		CNAME	openfire-test.evdc.wavemarket.com.
