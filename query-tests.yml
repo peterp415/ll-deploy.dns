@@ -9,6 +9,42 @@
 # to select attribute names in a registered variable and lists
 # their values with the display names.
 
+# TODO: instead of with_items master_zones, we should get
+# all the master and slave zones for each server.
+# Merge the "name" items for host_master_zones and host_slave_zones.
+# host_foo_zones[i].name
+# For example:
+#    "host_master_zones": [
+#        {
+#            "name": "engr.wavemarket.com"
+#        },
+#        {
+#            "name": "locationlabs.com"
+#        },
+#        ...
+#    "host_slave_zones": [
+#        {
+#            "masters": [
+#                "172.24.0.24",
+#                "172.24.0.25"
+#            ],
+#            "name": "evdc.wavemarket.com",
+#            "zones": [
+#                "evdc.wavemarket.com"
+#            ]
+#        },
+#        {
+#            "masters": [
+#                "172.24.0.24",
+#                "172.24.0.25"
+#            ],
+#            "name": "172.IN-ADDR.ARPA",
+#            "zones": [
+#                "172.IN-ADDR.ARPA"
+#            ]
+#        },
+#        ...
+
 # Using the DNS cluster group here
 # Perhaps prompt for the group or iterate a higher-level group
 - hosts: evdc_dns:hq_dns
