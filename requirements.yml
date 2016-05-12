@@ -1,17 +1,10 @@
 # ansible-galaxy roles
 # ansible-galaxy install -r requirements.yml -p shared-roles --force
 
-# Use feature/IG-855 since template changes are being made there
 - src: git://git.locationlabs.com/forks/github/resmo/ansible-role-bind
-  version: origin/feature/IG-855_templatehacks
+  version: origin/master
   scm: git
   name: ansible-role-bind
-
-# NOTE: the latest ipam role will be moved to:
-# ansible/roles/ipam
-- src: git://git.locationlabs.com/ig/deploy/ipam
-  version: origin/develop
-  scm: git
 
 - src: git://git.locationlabs.com/ansible/roles/consul
   version: "1.5.3"
