@@ -4,6 +4,3 @@
   roles:
       - { role: ansible-role-bind, tags: ['dns'] }
 
-- hosts: ipam
-  roles:
-      - { role: ipam, tags: ['ipam'] }
