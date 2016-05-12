@@ -31,7 +31,7 @@ esxi-dmz33.evdc.wavemarket.com"
 
 # Backup existing resolv.conf
 for current_server in $esxi_dmz_servers; do
-    ssh root@$current_server "cp /etc/resolv.conf /etc/resolv.conf.IG-1959"
+    ssh root@$current_server "if [ -f /etc/resolv.conf.IG-1959 ]; then echo 'resolv.conf backup already exists'; else cp /etc/resolv.conf /etc/resolv.conf.IG-1959; fi;"
 done
 
 # Push new resolv.conf
