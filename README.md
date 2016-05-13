@@ -35,35 +35,57 @@ actually deployed.
    Note that Vagrant provisioning copies `.ssh/authorized_keys` from the `vagrant` user into `/root`
    and runs an apt update.
 
-2. Invoke ansible to deploy bind and ipam systems:
+2. Invoke ansible to deploy bind systems:
 
         ansible-playbook -i inventory/vagrant/inventory deploy.yml
 
-## Staging (EVDC)
+## Staging or Production Environments Deploys
 
-1. Set up the staging environment by configuring:
+We currently have several environments defined for this deploy:
 
-   - Groups of servers in `inventory/staging/inventory`
-   - Master zone servers and zone slaving relationships in `inventory/staging/group_vars/<group>`
+| environment  | Description                   | Servers                           |
+| ------------ | ----------------------------- | --------------------------------- |
+| vagrant      | Vagrant test silos            | ns{1,2}.{common,aci}.sfdc.vagrant |
+| staging      | Silo simulation w/monitoring  | ns{1,2}-{aci,common,pub}.evdc     |
+| staging-test | Simple test pair w/monitoring | ns{1,2}-evdc.evdc                 |
+| evdc-and-hq  | Production EVDC and HQ        | ns{1,2}.evdc and ns{1,2}.engr     |
 
-2. Invoke ansible to deploy bind and ipam systems:
+1. Set up the deploy environment (if needed) by configuring:
 
-        ansible-playbook -i inventory/staging/inventory deploy.yml
+   - Groups of servers in `inventory/<environment>/inventory`
+   - Master zone servers and zone slaving relationships in `inventory/<environment>/group_vars/<group>`
+
+2. Invoke ansible to deploy bind systems:
+
+        ansible-playbook -i inventory/<environment>/inventory deploy.yml
 
 3. Deploy Consul monitoring agents.  This currently needs Ansible 1.9 and
    a separate `ansible.cfg` that excludes the vars plugin:
 
         mkvirtualenv ansible19
         pip install ansible==1.9.4
-        ANSIBLE_CONFIG=consul_ansible.cfg ansible-playbook -i inventory/staging/inventory consul_deploy.yml
+        ANSIBLE_CONFIG=consul_ansible.cfg ansible-playbook -i inventory/<environment>/inventory consul_deploy.yml
+
+## EVDC and HQ DNS Zone File Deploy
+
+See https://confluence.locationlabs.com/pages/viewpage.action?pageId=5689710 for the correct procedure.
+
+The gist is:
+
+1. Get zone data and make your changes
+
+Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../dns_zones/EVDC-HQ" with whats correct for your local machine:
+
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml --check --diff
+
+If the check is successful, run the following to deploy zone data:
+
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml
 
 ## Project Documentation
 
 * https://jira.locationlabs.com/browse/IG-1518
 * https://confluence.locationlabs.com/display/INFRA/DNS+Improvement
-
-HQ is already being deployed via Joe's dnsdeploy:
-* git@git.locationlabs.com:dnsdeploy
 
 ## Implementation
 
