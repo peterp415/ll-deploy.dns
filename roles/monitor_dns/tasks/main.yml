@@ -1,0 +1,26 @@
+---
+
+- name: Install Nagios Plugins
+  apt: name={{ item }} state=present
+  with_items:
+    - nagios-plugins
+    - nagios-plugins-contrib
+    - bc
+
+- name: Install dns local query check
+  monitoring:
+    state: present
+    advisory: true
+    check:
+      name: check_dns
+      serviceId: check_dns
+      script: "/usr/lib/nagios/plugins/check_dns -s localhost -H {{ ansible_fqdn }} -w {{ monitor_dns_warn_timeout }} -c {{ monitor_dns_crit_timeout }}"
+
+- name: Install dns recursive query check
+  monitoring:
+    state: present
+    advisory: true
+    check:
+      name: check_dns_recursive
+      serviceId: check_dns
+      script: "/usr/lib/nagios/plugins/check_dns -s localhost -H {{ monitor_dns_recursive_query_name }} -w {{ monitor_dns_warn_timeout }} -c {{ monitor_dns_crit_timeout }}"

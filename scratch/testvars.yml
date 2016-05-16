@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: false
+  user: root
+  tasks:
+    - debug: var=hostvars
+    - debug: var=lldns
+    - debug: var=host_master_zones
+    - debug: var=bind_config_slave_zones
+    - debug: var=bind_config_master_zones

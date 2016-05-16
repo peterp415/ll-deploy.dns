@@ -1,0 +1,6 @@
+---
+
+- hosts: lldns
+  roles:
+      - { role: ansible-role-bind, tags: ['dns'] }
+

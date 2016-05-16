@@ -1,0 +1,95 @@
+---
+
+# Query DNS server data for testing
+# Check multiple servers from inventory to verify they have the same zone data
+
+# We use a custom filter to generate a nicer results report.
+# The filter select_results takes a key=value list in the form
+#   display-name=attribute-name
+# to select attribute names in a registered variable and lists
+# their values with the display names.
+
+# TODO: instead of with_items master_zones, we should get
+# all the master and slave zones for each server.
+# Merge the "name" items for host_master_zones and host_slave_zones.
+# host_foo_zones[i].name
+# For example:
+#    "host_master_zones": [
+#        {
+#            "name": "engr.wavemarket.com"
+#        },
+#        {
+#            "name": "locationlabs.com"
+#        },
+#        ...
+#    "host_slave_zones": [
+#        {
+#            "masters": [
+#                "172.24.0.24",
+#                "172.24.0.25"
+#            ],
+#            "name": "evdc.wavemarket.com",
+#            "zones": [
+#                "evdc.wavemarket.com"
+#            ]
+#        },
+#        {
+#            "masters": [
+#                "172.24.0.24",
+#                "172.24.0.25"
+#            ],
+#            "name": "172.IN-ADDR.ARPA",
+#            "zones": [
+#                "172.IN-ADDR.ARPA"
+#            ]
+#        },
+#        ...
+
+# Using the DNS cluster group here
+# Perhaps prompt for the group or iterate a higher-level group
+- hosts: evdc_dns:hq_dns
+  tasks:
+
+  # List zones from dns servers and compute a zone data digest
+  # We use PIPESTATUS to get the result code from the "host" command
+  # and this requires bash
+  - name: Check zone data digest
+    shell: |
+      host -l {{ item }} localhost|md5sum; echo "rc=${PIPESTATUS[0]}"
+    args:
+      executable: /bin/bash
+    register: zone_digest
+    with_items: '{{ master_zones }}'
+    changed_when: False
+    failed_when: '"rc=0" not in zone_digest.stdout'
+
+  # Note if needed the raw results array is visible with debug: var=zone_digest.results
+
+  - name: Digest results report
+    debug: var=zone_digest.results|select_results(zone='item',sum='stdout')
+
+  # Query dns servers for the SOA serial in each zone
+  #   dig @${dnssrv} -t soa +short ${dnszone} 2>/dev/null | awk '{print $3}'
+  # This can be run locally, or could be run on each server
+  - name: Check zone SOA serial
+    shell: |
+      dig @localhost -t soa +short {{ item }} 2>/dev/null | awk '{print $3}'
+    register: zone_soa
+    with_items: '{{ master_zones }}'
+    changed_when: False
+
+  - name: SOA results report
+    debug: var=zone_soa.results|select_results(zone='item',SOA='stdout')
+
+
+  # Notes:
+  # You would think you could do something like
+  #   debug: msg="cmd {{ item.cmd }} returned {{ item.stdout }}"
+  #   with_items: '{{ zone_digest.results }}'
+  # but using debug with with_items dumps the whole item (albeit including
+  # your msg as an attribute) every time.
+  # See https://github.com/ansible/ansible/issues/5564
+  #
+  # Another approach is to use map like
+  #   debug: msg="Results  {{ zone_digest.results|map(attribute='stdout')|list }}"
+  # but the map filter cannot select more than one attribute.

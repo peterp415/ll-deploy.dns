@@ -1,0 +1,26 @@
+Quick dirty notes on required behavior:
+
+- We should follow Ansible's scope and var shadowing behavior wherever
+  possible.
+  - This means e.g. slave_zones is shadowed by declarations further
+    down in the tree.
+  - Ansible's understanding of slave_zones for a host is correct _iff_
+    the host is master in its cluster.
+    - If a host is not master, it slaves the slave_zones zones from
+       its master, and also slaves the cluster's own zones from its
+       master.
+  - master_zones and offer_zones are only meaningful for a
+    bottom-level cluster declaration. We should do error checking for this.
+  - For each host we should build another variable _slave_zones that
+    is a dictionary where each entry has zone as key and IP address as
+    value
+  - 
+
+
+Primitives:
+
+- get all zones mastered by a cluster
+- get all zones known about by a cluster #FIXME decompose
+  - There is a lot to be said here if the goal is to maintain
+    proximity to source of truth
+
