@@ -1,5 +1,15 @@
 ---
-master: "ns1-elder.sfdc.wavemarket.com"
-master_zones: ["sfdc.wavemarket.com"]
+master: "ns1.sfdc.wavemarket.com"
+master_zones:
+  - "sfdc.wavemarket.com"
+  - "10.in-addr.arpa"
+
+# Slave all zones defined in "prod_silo_dns" group from "common_dns" hosts
 slaves_zones: {"common_dns": ["prod_silo_dns"]}
 
+# Allow recursion, which now defaults to no
+bind_config_recursion: "True"
+
+# Servers who slave from us
+bind_config_master_allow_transfer:
+  - '127.0.0.1'

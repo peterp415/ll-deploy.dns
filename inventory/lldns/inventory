@@ -1,49 +1,54 @@
 [common_dns]
-ns1.common.sfdc.wavemarket.com bind_ip="192.168.1.2"
-ns2.common.sfdc.wavemarket.com bind_ip="192.168.1.3"
+ns1.common.sfdc.wavemarket.com bind_ip="10.252.20.16"
+ns2.common.sfdc.wavemarket.com bind_ip="10.252.20.17"
 
 [aci_dns]
-ns1.aci.sfdc.wavemarket.com bind_ip="192.168.2.2"
-ns2.aci.sfdc.wavermarket.com bind_ip="192.168.2.3"
-#blaa
-[afm_dns]
-ns1.afm.sfdc.wavemarket.com bind_ip="192.168.3.2"
-ns2.afm.sfdc.wavemarket.com bind_ip="192.168.3.3"
+ns1.aci.sfdc.wavemarket.com bind_ip="10.207.4.13"
+ns2.aci.sfdc.wavermarket.com bind_ip="10.207.4.14"
 
-[elder_dns]
-ns1-elder.sfdc.wavemarket.com bind_ip="192.168.4.2"
-ns2-elder.sfdc.wavemarket.com bind_ip="192.168.4.3"
+[afm_dns]
+ns1.afm.sfdc.wavemarket.com bind_ip="10.211.4.10"
+ns2.afm.sfdc.wavemarket.com bind_ip="10.211.4.11"
 
 [sfp_dns]
-ns1.sfp.sfdc.wavemarket.com bind_ip="192.168.5.2"
-ns2.sfp.sfdc.wavemarket.com bind_ip="192.168.5.3"
+ns1.sfp.sfdc.wavemarket.com bind_ip="10.208.4.30"
+ns2.sfp.sfdc.wavemarket.com bind_ip="10.208.4.31"
 
 [tfw_dns]
-ns1.tfw.sfdc.wavemarket.com bind_ip="192.168.6.2"
-ns2.tfw.sfdc.wavemarket.com bind_ip="192.168.6.3"
+ns1.tfw.sfdc.wavemarket.com bind_ip="10.209.4.10"
+ns2.tfw.sfdc.wavemarket.com bind_ip="10.209.4.11"
+
+[elder_dns]
+ns1.sfdc.wavemarket.com bind_ip="10.249.5.12"
+ns2.sfdc.wavemarket.com bind_ip="10.249.5.13"
 
 [prod_silo_dns:children]
 common_dns
 aci_dns
 afm_dns
-elder_dns
 sfp_dns
 tfw_dns
+elder_dns
 
-[public_dns]
-ns1.wavemarket.com bind_ip="192.168.7.2"
-ns2.wavemarket.com bind_ip="192.168.7.3"
+# Public DNS in phase 2
+#[public_dns]
+#ns1-public.common.sfdc.wavemarket.com bind_ip="10.252.20.18"
+#ns2-public.common.sfdc.wavemarket.com bind_ip="10.252.20.19"
 
-[evdc_dns]
-ns1.evdc.wavemarket.com bind_ip="192.168.8.2"
-ns2.evdc.wavemarket.com bind_ip="192.168.8.3"
-
-# FIXME HQ
+# Add EVDC and HQ in later
+#[evdc_dns]
+#ns1.evdc.wavemarket.com bind_ip='172.24.0.24'
+#ns2.evdc.wavemarket.com bind_ip='172.24.0.25'
+#
+#[hq_dns]
+#ns1.engr.wavemarket.com bind_ip='10.38.3.20'
+#ns2.engr.wavemarket.com bind_ip='10.38.3.21'
 
 [lldns:children]
-public_dns
-evdc_dns
 prod_silo_dns
+# public_dns
+# evdc_dns
+# hq_dns
 
 [lldns:vars]
 dns_world="lldns"
