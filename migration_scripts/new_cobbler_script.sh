@@ -18,28 +18,21 @@ for db_zone in db.*; do
 
   echo $zone_stripped_of_db
 
-  #Check if the zone has digits (is reverse DNS) if so we can skip all of the logic below and just copy it to the mergedzones folder
-  echo "${zone_stripped_of_db}" | grep -q '[0-9]'
-  if [ $? != 0 ];
+  #Create new file under merged_zones
+  touch merged_zones/"db."$zone_stripped_of_db
+  #Remove old includes line
+  grep -v '$INCLUDE' $db_zone  >> merged_zones/"db."$zone_stripped_of_db
+
+  #try to find matching static zone and append it if exists
+  static_zone="static."$zone_stripped_of_db
+
+  if [ -f $static_zone ];
   then
-    #Create new file under merged_zones
-    touch merged_zones/"db."$zone_stripped_of_db
-    #Remove old includes line
-    head -n -1 $db_zone | cat  >> merged_zones/"db."$zone_stripped_of_db
+     cat $static_zone >> merged_zones/"db."$zone_stripped_of_db
 
-    #try to find matching static zone and append it if exists
-    static_zone="static."$zone_stripped_of_db
-
-    if [ -f $static_zone ];
-    then
-       cat $static_zone >> merged_zones/"db."$zone_stripped_of_db
-
-       echo "Successfully merged static and db zones of "$zone_stripped_of_db
-    else
-      echo "No matching static file found, copied original db zone to mergedzones folder"
-    fi
+     echo "Successfully merged static and db zones of "$zone_stripped_of_db
   else
-    cp $db_zone merged_zones/
+     echo "No matching static file found, copied original db zone to mergedzones folder"
   fi
 done
 
@@ -63,27 +56,20 @@ for db_zone in db.*; do
 
   echo $zone_stripped_of_db
 
-  #Check if the zone has digits (is reverse DNS) if so we can skip all of the logic below and just copy it to the mergedzones folder
-  echo "${zone_stripped_of_db}" | grep -q '[0-9]'
-  if [ $? != 0 ];
+  #Create new file under merged_zones
+  touch merged_zones/"db."$zone_stripped_of_db
+  #Remove old includes line
+  grep -v '$INCLUDE' $db_zone  >> merged_zones/"db."$zone_stripped_of_db
+
+  #try to find matching static zone and append it if exists
+  static_zone="static."$zone_stripped_of_db
+
+  if [ -f $static_zone ];
   then
-    #Create new file under merged_zones
-    touch merged_zones/"db."$zone_stripped_of_db
-    #Remove old includes line
-    head -n -1 $db_zone | cat  >> merged_zones/"db."$zone_stripped_of_db
+     cat $static_zone >> merged_zones/"db."$zone_stripped_of_db
 
-    #try to find matching static zone and append it if exists
-    static_zone="static."$zone_stripped_of_db
-
-    if [ -f $static_zone ];
-    then
-       cat $static_zone >> merged_zones/"db."$zone_stripped_of_db
-
-       echo "Successfully merged static and db zones of "$zone_stripped_of_db
-    else
-      echo "No matching static file found, copied original db zone to mergedzones folder"
-    fi
+     echo "Successfully merged static and db zones of "$zone_stripped_of_db
   else
-    cp $db_zone merged_zones/
+     echo "No matching static file found, copied original db zone to mergedzones folder"$zone_stripped_of_db
   fi
 done
