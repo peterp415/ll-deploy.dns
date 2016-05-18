@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#
+# cobbler.common zones
+#
 if [ -d cobbler_zones ]; then
   rm -rf cobbler_zones
 fi
@@ -78,6 +81,9 @@ done
 
 cd ..
 
+#
+# aci-cobbler1.aci zones
+#
 if [ -d aci_cobbler1_zones ]; then
   rm -rf aci_cobbler1_zones
 fi
@@ -129,4 +135,38 @@ for f in db.0.207.10.in-addr.arpa db.1.207.10.in-addr.arpa db.2.207.10.in-addr.a
   # Add second NS record
   sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
 done
+
+cd ..
+
+#
+# ns5 zones
+#
+if [ -d ns5_zones ]; then
+  rm -rf ns5_zones
+fi
+
+mkdir ns5_zones
+
+# Copy masters to local files with correct name
+scp root@ns5.sfdc.wavemarket.com:/etc/bind/zones/10.x.x.x            ns5_zones/db.10.in-addr.arpa
+scp root@ns5.sfdc.wavemarket.com:/etc/bind/zones/sfdc.wavemarket.com ns5_zones/db.sfdc.wavemarket.com
+
+cd ns5_zones
+
+cp db.sfdc.wavemarket.com db.sfdc.wavemarket.com.orig
+# Fix SOA record
+sed -i -e '/SOA/s/ns5.sfdc.wavemarket.com./ns1.sfdc.wavemarket.com./g' db.sfdc.wavemarket.com
+# Remove IN NS ns5
+sed -i -e '/IN.*NS.*ns5/d' db.sfdc.wavemarket.com
+# Update ns1,ns2 IN A to new server IPs
+sed -i -e 's/^ns1.*IN.*A.*/ns1\    IN    A    10.249.5.12/' -e 's/^ns2.*IN.*A.*/ns2\    IN    A    10.249.5.13/' db.sfdc.wavemarket.com
+# Remove ns4 IN A
+sed -i -e '/ns4.*IN.*A/d' db.sfdc.wavemarket.com
+
+cp db.10.in-addr.arpa db.10.in-addr.arpa.orig
+# Fix SOA record
+sed -i -e '/SOA/s/approx.sfdc.wavemarket.com./ns1.sfdc.wavemarket.com./g' db.10.in-addr.arpa
+sed -i -e '/NS/s/lvs1.sfdc.wavemarket.com./ns1/g' -e '/NS/s/lvs2.sfdc.wavemarket.com./ns2/g'  db.10.in-addr.arpa
+
+cd ..
 
