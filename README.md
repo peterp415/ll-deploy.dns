@@ -43,12 +43,14 @@ actually deployed.
 
 We currently have several environments defined for this deploy:
 
-| environment  | Description                   | Servers                           |
-| ------------ | ----------------------------- | --------------------------------- |
-| vagrant      | Vagrant test silos            | ns{1,2}.{common,aci}.sfdc.vagrant |
-| staging      | Silo simulation w/monitoring  | ns{1,2}-{aci,common,pub}.evdc     |
-| staging-test | Simple test pair w/monitoring | ns{1,2}-evdc.evdc                 |
-| evdc-and-hq  | Production EVDC and HQ        | ns{1,2}.evdc and ns{1,2}.engr     |
+| environment  | Description                       | Servers                                            |
+| ------------ | --------------------------------- | -------------------------------------------------- |
+| vagrant      | Vagrant test silos                | ns{1,2}.{common,aci}.sfdc.vagrant                  |
+| staging      | Silo simulation w/monitoring      | ns{1,2}-{aci,common,pub}.evdc                      |
+| staging-test | Simple test pair w/monitoring     | ns{1,2}-evdc.evdc                                  |
+| evdc-and-hq  | Production EVDC and HQ            | ns{1,2}.evdc and ns{1,2}.engr                      |
+| lldns        | Production LL (SFDC, EVDC and HQ) | evdc-and-hq plus ns{1,2}.{,common,aci,afm,tfw,sfp} |
+| ll-public    | Public Production LL (TBD)        | ns{1,2}-public.common                              |
 
 1. Set up the deploy environment (if needed) by configuring:
 
@@ -76,11 +78,11 @@ The gist is:
 
 Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../dns_zones/EVDC-HQ" with whats correct for your local machine:
 
-    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml --check --diff
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml --check --diff
 
 If the check is successful, run the following to deploy zone data:
 
-    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml
 
 ## Project Documentation
 
