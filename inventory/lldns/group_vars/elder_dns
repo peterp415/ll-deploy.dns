@@ -5,7 +5,7 @@ master_zones:
   - "10.in-addr.arpa"
 
 # Slave all zones defined in "prod_silo_dns" group from "common_dns" hosts
-slaves_zones: {"common_dns": ["prod_silo_dns"]}
+slave_zones: {"common_dns": ["prod_silo_dns"]}
 
 # Allow recursion, which now defaults to no
 bind_config_recursion: "True"
