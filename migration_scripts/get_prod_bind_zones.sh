@@ -3,7 +3,8 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 OUTPUT_DIR="${SCRIPT_DIR}/prod_zone_output"
-[ -d "${OUTPUT_DIR}" ] && rm -rf ${OUTPUT_DIR} && mkdir ${OUTPUT_DIR}
+[ -d "${OUTPUT_DIR}" ] && rm -rf ${OUTPUT_DIR}/*
+mkdir -p ${OUTPUT_DIR}
 
 #
 # cobbler.common zones
@@ -183,7 +184,10 @@ cp -i db.10.in-addr.arpa $OUTPUT_DIR/
 
 cd ..
 
+echo
+echo "Final zone files are in ${OUTPUT_DIR}"
+echo
 echo "NOTE: Duplicate sfdc zone files need to be merged manually:"
-echo "  ${OUTPUT_DIR}/db.sfdc.wavemarket.com"
-echo "  ${OUTPUT_DIR}/db.sfdc.wavemarket.com.cobbler (from cobbler, mostly oob entries)"
+echo "  Merge ${OUTPUT_DIR}/db.sfdc.wavemarket.com.cobbler (from cobbler, mostly oob entries)"
+echo "  Into  ${OUTPUT_DIR}/db.sfdc.wavemarket.com"
 
