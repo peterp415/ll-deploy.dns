@@ -2,13 +2,13 @@
 master: "ns1.sfp.sfdc.wavemarket.com"
 master_zones:
   - "sfp.sfdc.wavemarket.com"
-  - "0.208.10.in-addr.arpa."
-  - "1.208.10.in-addr.arpa."
-  - "2.208.10.in-addr.arpa."
-  - "3.208.10.in-addr.arpa."
-  - "4.208.10.in-addr.arpa."
-  - "5.208.10.in-addr.arpa."
-  - "6.208.10.in-addr.arpa."
+  - "0.208.10.in-addr.arpa"
+  - "1.208.10.in-addr.arpa"
+  - "2.208.10.in-addr.arpa"
+  - "3.208.10.in-addr.arpa"
+  - "4.208.10.in-addr.arpa"
+  - "5.208.10.in-addr.arpa"
+  - "6.208.10.in-addr.arpa"
 
 
 slave_zones: {"common_dns": ["prod_silo_dns"]}

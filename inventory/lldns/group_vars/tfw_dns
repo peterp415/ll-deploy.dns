@@ -2,14 +2,14 @@
 master: "ns1.tfw.sfdc.wavemarket.com"
 master_zones:
   - "tfw.sfdc.wavemarket.com"
-  - "0.209.10.in-addr.arpa."
-  - "1.209.10.in-addr.arpa."
-  - "2.209.10.in-addr.arpa."
-  - "3.209.10.in-addr.arpa."
-  - "4.209.10.in-addr.arpa."
-  - "5.209.10.in-addr.arpa."
-  - "6.209.10.in-addr.arpa."
-  - "7.209.10.in-addr.arpa."
+  - "0.209.10.in-addr.arpa"
+  - "1.209.10.in-addr.arpa"
+  - "2.209.10.in-addr.arpa"
+  - "3.209.10.in-addr.arpa"
+  - "4.209.10.in-addr.arpa"
+  - "5.209.10.in-addr.arpa"
+  - "6.209.10.in-addr.arpa"
+  - "7.209.10.in-addr.arpa"
 
 slave_zones: {"common_dns": ["prod_silo_dns"]}
 
