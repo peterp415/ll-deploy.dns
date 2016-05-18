@@ -56,30 +56,30 @@ done
 
 # Fix NS and SOA for AFM zones
 for f in db.0.211.10.in-addr.arpa db.1.211.10.in-addr.arpa db.2.211.10.in-addr.arpa db.3.211.10.in-addr.arpa db.4.211.10.in-addr.arpa db.5.211.10.in-addr.arpa db.6.211.10.in-addr.arpa db.7.211.10.in-addr.arpa db.afm.sfdc.wavemarket.com ; do
-  sed -i -e '/SOA/s/10.252.20.11./ns1.afm.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.afm.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
+  sed -i -e '/SOA/s/10.252.20.11./ns1.afm.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.afm.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1.afm.sfdc.wavemarket.com./g' merged_zones/$f
   # Add second NS record
-  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2.afm.sfdc.wavemarket.com.' merged_zones/$f
   cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for SFP zones
 for f in db.0.208.10.in-addr.arpa db.1.208.10.in-addr.arpa db.2.208.10.in-addr.arpa db.3.208.10.in-addr.arpa db.4.208.10.in-addr.arpa db.5.208.10.in-addr.arpa db.6.208.10.in-addr.arpa db.sfp.sfdc.wavemarket.com ; do
-  sed -i -e '/SOA/s/10.252.20.11./ns1.sfp.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.sfp.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
+  sed -i -e '/SOA/s/10.252.20.11./ns1.sfp.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.sfp.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1.sfp.sfdc.wavemarket.com./g' merged_zones/$f
   # Add second NS record
-  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2.sfp.sfdc.wavemarket.com.' merged_zones/$f
   cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for TFW zones
 for f in db.0.209.10.in-addr.arpa db.1.209.10.in-addr.arpa db.2.209.10.in-addr.arpa db.3.209.10.in-addr.arpa db.4.209.10.in-addr.arpa db.5.209.10.in-addr.arpa db.6.209.10.in-addr.arpa db.7.209.10.in-addr.arpa db.tfw.sfdc.wavemarket.com ; do
-  sed -i -e '/SOA/s/10.252.20.11./ns1.tfw.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.tfw.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
+  sed -i -e '/SOA/s/10.252.20.11./ns1.tfw.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.tfw.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1.tfw.sfdc.wavemarket.com./g' merged_zones/$f
   # Add second NS record
-  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2.tfw.sfdc.wavemarket.com.' merged_zones/$f
   cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for common zones, dw and att
 for f in db.0.252.10.in-addr.arpa db.1.252.10.in-addr.arpa db.2.252.10.in-addr.arpa db.3.252.10.in-addr.arpa db.4.252.10.in-addr.arpa db.5.252.10.in-addr.arpa db.6.252.10.in-addr.arpa db.7.252.10.in-addr.arpa db.20.252.10.in-addr.arpa db.common.sfdc.wavemarket.com db.dw.sfdc.wavemarket.com db.att.sfdc.wavemarket.com; do
-  sed -i -e '/SOA/s/10.252.20.11./ns1.common.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.common.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
+  sed -i -e '/SOA/s/10.252.20.11./ns1.common.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.common.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1.common.sfdc.wavemarket.com./g' merged_zones/$f
   # Add second NS record
-  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2.common.sfdc.wavemarket.com.' merged_zones/$f
   cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for sfdc zones
@@ -142,9 +142,9 @@ done
 
 # Fix NS and SOA for ACI zones
 for f in db.0.207.10.in-addr.arpa db.1.207.10.in-addr.arpa db.2.207.10.in-addr.arpa db.3.207.10.in-addr.arpa db.4.207.10.in-addr.arpa db.5.207.10.in-addr.arpa db.6.207.10.in-addr.arpa db.7.207.10.in-addr.arpa db.aci.sfdc.wavemarket.com ; do
-  sed -i -e '/SOA/s/10.207.4.11./ns1.aci.sfdc.wavemarket.com./g' -e '/SOA/s/aci-cobbler1/ns1.aci.sfdc.wavemarket.com./g' -e '/NS/s/10.207.4.11./ns1/g' merged_zones/$f
+  sed -i -e '/SOA/s/10.207.4.11./ns1.aci.sfdc.wavemarket.com./g' -e '/SOA/s/aci-cobbler1/ns1.aci.sfdc.wavemarket.com./g' -e '/NS/s/10.207.4.11./ns1.aci.sfdc.wavemarket.com./g' merged_zones/$f
   # Add second NS record
-  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  sed -i -e '/NS.*ns1/a\                        IN      NS      ns2.aci.sfdc.wavemarket.com.' merged_zones/$f
   cp -i merged_zones/$f $OUTPUT_DIR/
 done
 
@@ -179,7 +179,7 @@ cp -i db.sfdc.wavemarket.com $OUTPUT_DIR/
 cp db.10.in-addr.arpa db.10.in-addr.arpa.orig
 # Fix SOA record
 sed -i -e '/SOA/s/approx.sfdc.wavemarket.com./ns1.sfdc.wavemarket.com./g' db.10.in-addr.arpa
-sed -i -e '/NS/s/lvs1.sfdc.wavemarket.com./ns1/g' -e '/NS/s/lvs2.sfdc.wavemarket.com./ns2/g'  db.10.in-addr.arpa
+sed -i -e '/NS/s/lvs1.sfdc.wavemarket.com./ns1.sfdc.wavemarket.com./g' -e '/NS/s/lvs2.sfdc.wavemarket.com./ns2.sfdc.wavemarket.com./g'  db.10.in-addr.arpa
 cp -i db.10.in-addr.arpa $OUTPUT_DIR/
 
 cd ..
