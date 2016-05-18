@@ -1,5 +1,10 @@
 #!/bin/bash
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+OUTPUT_DIR="${SCRIPT_DIR}/prod_zone_output"
+[ -d "${OUTPUT_DIR}" ] && rm -rf ${OUTPUT_DIR} && mkdir ${OUTPUT_DIR}
+
 #
 # cobbler.common zones
 #
@@ -53,30 +58,35 @@ for f in db.0.211.10.in-addr.arpa db.1.211.10.in-addr.arpa db.2.211.10.in-addr.a
   sed -i -e '/SOA/s/10.252.20.11./ns1.afm.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.afm.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
   # Add second NS record
   sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for SFP zones
 for f in db.0.208.10.in-addr.arpa db.1.208.10.in-addr.arpa db.2.208.10.in-addr.arpa db.3.208.10.in-addr.arpa db.4.208.10.in-addr.arpa db.5.208.10.in-addr.arpa db.6.208.10.in-addr.arpa db.sfp.sfdc.wavemarket.com ; do
   sed -i -e '/SOA/s/10.252.20.11./ns1.sfp.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.sfp.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
   # Add second NS record
   sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for TFW zones
 for f in db.0.209.10.in-addr.arpa db.1.209.10.in-addr.arpa db.2.209.10.in-addr.arpa db.3.209.10.in-addr.arpa db.4.209.10.in-addr.arpa db.5.209.10.in-addr.arpa db.6.209.10.in-addr.arpa db.7.209.10.in-addr.arpa db.tfw.sfdc.wavemarket.com ; do
   sed -i -e '/SOA/s/10.252.20.11./ns1.tfw.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.tfw.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
   # Add second NS record
   sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for common zones, dw and att
 for f in db.0.252.10.in-addr.arpa db.1.252.10.in-addr.arpa db.2.252.10.in-addr.arpa db.3.252.10.in-addr.arpa db.4.252.10.in-addr.arpa db.5.252.10.in-addr.arpa db.6.252.10.in-addr.arpa db.7.252.10.in-addr.arpa db.20.252.10.in-addr.arpa db.common.sfdc.wavemarket.com db.dw.sfdc.wavemarket.com db.att.sfdc.wavemarket.com; do
   sed -i -e '/SOA/s/10.252.20.11./ns1.common.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.common.sfdc.wavemarket.com./ns1.common.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
   # Add second NS record
   sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  cp -i merged_zones/$f $OUTPUT_DIR/
 done
 # Fix NS and SOA for sfdc zones
 for f in db.sfdc.wavemarket.com; do
   sed -i -e '/SOA/s/10.252.20.11./ns1.sfdc.wavemarket.com./g' -e '/SOA/s/cobbler.sfdc.wavemarket.com./ns1.sfdc.wavemarket.com./g' -e '/NS/s/10.252.20.11./ns1/g' merged_zones/$f
   # Add second NS record
   sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  cp -i merged_zones/$f $OUTPUT_DIR/${f}.cobbler
 done
 
 cd ..
@@ -134,6 +144,7 @@ for f in db.0.207.10.in-addr.arpa db.1.207.10.in-addr.arpa db.2.207.10.in-addr.a
   sed -i -e '/SOA/s/10.207.4.11./ns1.aci.sfdc.wavemarket.com./g' -e '/SOA/s/aci-cobbler1/ns1.aci.sfdc.wavemarket.com./g' -e '/NS/s/10.207.4.11./ns1/g' merged_zones/$f
   # Add second NS record
   sed -i -e '/NS.*ns1/a\                        IN      NS      ns2' merged_zones/$f
+  cp -i merged_zones/$f $OUTPUT_DIR/
 done
 
 cd ..
@@ -162,11 +173,17 @@ sed -i -e '/IN.*NS.*ns5/d' db.sfdc.wavemarket.com
 sed -i -e 's/^ns1.*IN.*A.*/ns1\    IN    A    10.249.5.12/' -e 's/^ns2.*IN.*A.*/ns2\    IN    A    10.249.5.13/' db.sfdc.wavemarket.com
 # Remove ns4 IN A
 sed -i -e '/ns4.*IN.*A/d' db.sfdc.wavemarket.com
+cp -i db.sfdc.wavemarket.com $OUTPUT_DIR/
 
 cp db.10.in-addr.arpa db.10.in-addr.arpa.orig
 # Fix SOA record
 sed -i -e '/SOA/s/approx.sfdc.wavemarket.com./ns1.sfdc.wavemarket.com./g' db.10.in-addr.arpa
 sed -i -e '/NS/s/lvs1.sfdc.wavemarket.com./ns1/g' -e '/NS/s/lvs2.sfdc.wavemarket.com./ns2/g'  db.10.in-addr.arpa
+cp -i db.10.in-addr.arpa $OUTPUT_DIR/
 
 cd ..
+
+echo "NOTE: Duplicate sfdc zone files need to be merged manually:"
+echo "  ${OUTPUT_DIR}/db.sfdc.wavemarket.com"
+echo "  ${OUTPUT_DIR}/db.sfdc.wavemarket.com.cobbler (from cobbler, mostly oob entries)"
 
