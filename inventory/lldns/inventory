@@ -4,7 +4,7 @@ ns2.common.sfdc.wavemarket.com bind_ip="10.252.20.17"
 
 [aci_dns]
 ns1.aci.sfdc.wavemarket.com bind_ip="10.207.4.13"
-ns2.aci.sfdc.wavermarket.com bind_ip="10.207.4.14"
+ns2.aci.sfdc.wavemarket.com bind_ip="10.207.4.14"
 
 [afm_dns]
 ns1.afm.sfdc.wavemarket.com bind_ip="10.211.4.10"
