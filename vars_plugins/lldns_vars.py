@@ -203,7 +203,8 @@ class VarsModule(object):
     def get_slave_zones (self, host):
         """
         Get zones slaved by a host.
-        Returns dictionary with zone as key and list of IPs as value
+        Returns a list of zone dictionaries of the form
+          {'name':zone, 'zones':[zone], 'masters':[master_ip,master_ip,...]}
         This requires for now that the slaving source specification be a
         cluster
         """
