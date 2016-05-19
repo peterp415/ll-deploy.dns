@@ -10,6 +10,10 @@ bind_config_recursion: "True"
 bind_config_master_allow_transfer:
   - '127.0.0.1'
 
+# Allow xfers and send notifies for external slave IPs
+external_slave_ips:
+  - '172.24.0.10'
+
 # Forwarded zones
 bind_config_forward_zones:
 
