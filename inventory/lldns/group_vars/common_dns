@@ -27,3 +27,10 @@ bind_config_recursion: "True"
 # Servers who slave from us
 bind_config_master_allow_transfer:
   - '127.0.0.1'
+
+# Allow xfers and send notifies for external slave IPs
+# '10.252.20.11'  cobbler.common
+# '10.207.4.11'   aci-cobbler1.aci
+external_slave_ips:
+  - '10.252.20.11'
+  - '10.207.4.11'
