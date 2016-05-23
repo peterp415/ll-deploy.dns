@@ -2,6 +2,8 @@
 master: "ns1.engr.wavemarket.com"
 master_zones:
   - "engr.wavemarket.com"
+  - "168.192.in-addr.arpa"
+  - "oob.engr.wavemarket.com"
   - "locationlabs.com"
   - "hq.locationlabs.com"
   - "hq.wavemarket.com"
@@ -38,7 +40,6 @@ bind_config_forward_zones:
     forwarders: [ '10.252.20.11' ]
     forward: only
     zones:
-      - 168.192.in-addr.arpa
       - aci.mgmt.sfdc.wavemarket.com
       - aci.sfdc.wavemarket.com
       - common.sfdc.wavemarket.com
