@@ -1,0 +1,9 @@
+[public_dns]
+ns1-public.common.sfdc.wavemarket.com bind_ip="10.252.20.18"
+ns2-public.common.sfdc.wavemarket.com bind_ip="10.252.20.19"
+
+[lldns:children]
+public_dns
+
+[lldns:vars]
+dns_world="lldns"
