@@ -30,25 +30,8 @@ sfp_dns
 tfw_dns
 elder_dns
 
-# Public DNS in phase 2
-#[public_dns]
-#ns1-public.common.sfdc.wavemarket.com bind_ip="10.252.20.18"
-#ns2-public.common.sfdc.wavemarket.com bind_ip="10.252.20.19"
-
-# Add EVDC and HQ in later
-#[evdc_dns]
-#ns1.evdc.wavemarket.com bind_ip='172.24.0.24'
-#ns2.evdc.wavemarket.com bind_ip='172.24.0.25'
-#
-#[hq_dns]
-#ns1.engr.wavemarket.com bind_ip='10.38.3.20'
-#ns2.engr.wavemarket.com bind_ip='10.38.3.21'
-
 [lldns:children]
 prod_silo_dns
-# public_dns
-# evdc_dns
-# hq_dns
 
 [lldns:vars]
 dns_world="lldns"
