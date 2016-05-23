@@ -37,7 +37,7 @@ actually deployed.
 
 2. Invoke ansible to deploy bind systems:
 
-        ansible-playbook -i inventory/vagrant/inventory deploy.yml
+        ansible-playbook -e 'bind_masterzones_local_path=masters.vagrant' -i inventory/vagrant/inventory deploy.yml
 
 ## Staging or Production Environments Deploys
 
