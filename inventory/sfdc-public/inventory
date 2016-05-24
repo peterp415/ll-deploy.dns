@@ -1,6 +1,6 @@
 [public_dns]
-ns1-public.common.sfdc.wavemarket.com bind_ip="10.252.20.18"
-ns2-public.common.sfdc.wavemarket.com bind_ip="10.252.20.19"
+66.171.207.10 bind_ip="66.171.207.10"
+66.171.207.11 bind_ip="66.171.207.11"
 
 [lldns:children]
 public_dns

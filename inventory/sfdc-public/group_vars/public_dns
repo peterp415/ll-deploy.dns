@@ -1,5 +1,5 @@
 ---
-master: "ns1-public.common.sfdc.wavemarket.com"
+master: "ns1.wavemarket.com"
 master_zones:
   - "109.25.69.in-addr.arpa"
   - "128.31.164.64.in-addr.arpa"
@@ -46,6 +46,13 @@ master_zones:
   - "sprintdrivefirst.com"
   - "drivesmartplus.com"
   - "sprintmobilecontrol.com"
+
+ancillary_files: 
+  - "mailrecords-direct.include"
+  - "multi"
+  - "ec2"
+  - "e-locationlabs.save"
+  - "mailrecords.include"
 
 slave_zones: {}
 
