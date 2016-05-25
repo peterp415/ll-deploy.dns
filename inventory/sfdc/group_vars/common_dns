@@ -34,3 +34,14 @@ bind_config_master_allow_transfer:
 external_slave_ips:
   - '10.252.20.11'
   - '10.207.4.11'
+
+# These are needed for consul setup:
+
+# the IP address to uniquely identify a host in a network; used if moving away from docker-config in favor of docker-compose
+host_ip_address: "{{ ansible_eth0.ipv4.address }}"
+
+consul_datacenter: "dc1"
+consul_server_hosts:
+ - infra-consul1.common.sfdc.wavemarket.com
+ - infra-consul2.common.sfdc.wavemarket.com
+ - infra-consul3.common.sfdc.wavemarket.com
