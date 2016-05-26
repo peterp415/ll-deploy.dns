@@ -1,7 +1,7 @@
 ---
 master: "ns1.evdc.wavemarket.com"
 master_zones: ["evdc.wavemarket.com","172.IN-ADDR.ARPA"]
-slave_zones: {"hq_dns" : ["hq_dns"]}
+slave_zones: {}
 
 # Allow recursion, which now defaults to no
 bind_config_recursion: "True"
