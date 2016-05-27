@@ -20,6 +20,12 @@ bind_config_recursion: "True"
 bind_config_master_allow_transfer:
   - '127.0.0.1'
 
+# Global options:
+# Set max-retry-time to 5 minutes to limit how long it may take
+# to pick up zone data slaved from other slaves
+bind_config_global_options:
+  - "max-retry-time 300"
+
 # These are needed for consul setup:
 
 # the IP address to uniquely identify a host in a network; used if moving away from docker-config in favor of docker-compose
