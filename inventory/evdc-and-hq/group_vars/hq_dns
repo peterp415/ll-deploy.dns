@@ -2,6 +2,8 @@
 master: "ns1.engr.wavemarket.com"
 master_zones:
   - "engr.wavemarket.com"
+  - "168.192.in-addr.arpa"
+  - "oob.engr.wavemarket.com"
   - "locationlabs.com"
   - "hq.locationlabs.com"
   - "hq.wavemarket.com"
@@ -34,17 +36,17 @@ bind_config_forward_zones:
       - 10.in-addr.arpa
       - 200.168.192.in-addr.arpa
 
-  - name: domains forwarded from cobbler.common
-    forwarders: [ '10.252.20.11' ]
+  - name: domains forwarded to ns1,ns2.common
+    forwarders: [ '10.252.20.16','10.252.20.17' ]
     forward: only
     zones:
-      - 168.192.in-addr.arpa
       - aci.mgmt.sfdc.wavemarket.com
       - aci.sfdc.wavemarket.com
       - common.sfdc.wavemarket.com
       - sfp.sfdc.wavemarket.com
       - sfdc.wavemarket.com
       - afm.sfdc.wavemarket.com
+      - tfw.sfdc.wavemarket.com
       - 109.10.in-addr.arpa
       - 249.10.in-addr.arpa
       - 16.172.in-addr.arpa

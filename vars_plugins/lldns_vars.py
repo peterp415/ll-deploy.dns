@@ -162,7 +162,7 @@ class VarsModule(object):
         return None
 
 
-    def allow_xfer (self, from_host, to_host, zone):
+    def allow_xfer (self, from_host, slave_host_ip, zone):
         """
         Inject configuration for allow-transfer and also-notify
         FIXME: Has other evil behavior and makes assumptions re: 1 zone per zonedef
@@ -170,14 +170,13 @@ class VarsModule(object):
         """
         masterp=self.is_master (from_host, zone)
         from_vars=from_host.get_vars()
-        to_vars=to_host.get_vars()
         zones_var = 'bind_config_master_zones' if masterp else 'bind_config_slave_zones'
-        zone_dict = { 'allow_transfer' : [to_vars['bind_ip']],
+        zone_dict = { 'allow_transfer' : [slave_host_ip],
                        'name' : zone,
                        'zones' : [zone] }
         if masterp:
             # For zone masters, also set also_notify to notify the slaves
-            zone_dict['also_notify'] = [to_vars['bind_ip']]
+            zone_dict['also_notify'] = [slave_host_ip]
         self.merge_bind_config_zone (from_host, zones_var, zone_dict)
 
     def expand_zonedef (self, host, root):
@@ -204,7 +203,8 @@ class VarsModule(object):
     def get_slave_zones (self, host):
         """
         Get zones slaved by a host.
-        Returns dictionary with zone as key and list of IPs as value
+        Returns a list of zone dictionaries of the form
+          {'name':zone, 'zones':[zone], 'masters':[master_ip,master_ip,...]}
         This requires for now that the slaving source specification be a
         cluster
         """
@@ -238,10 +238,13 @@ class VarsModule(object):
         return slave_zones
 
     def inject_allow_xfers (self, host, slave_zones):
+        slave_host_vars = host.get_vars()
+        slave_host_ip = slave_host_vars['bind_ip']
         for slave_zone in slave_zones:
+            # Allow xfers from all masters of all zones we slave to us
             for master_ip in slave_zone['masters']:
                 master_host = self.get_host_by_bind_ip (host, master_ip)
-                self.allow_xfer (master_host, host, slave_zone['name'])
+                self.allow_xfer (master_host, slave_host_ip, slave_zone['name'])
         return None #FIXME
 
     def run(self, host, vault_password=None):
@@ -253,9 +256,14 @@ class VarsModule(object):
         root = self.inventory.get_group(dns_world)
         clusters = self.get_clusters (root)
         self.get_world_groups (host)
+        external_slave_ips = hostvars['external_slave_ips'] if 'external_slave_ips' in hostvars else []
         host_master_zones = self.get_master_zones (host)
         host_slave_zones = self.get_slave_zones (host)
         self.inject_allow_xfers (host, host_slave_zones)
+        # Allow xfers of master and slave zones to external slave IPs
+        for zone in host_master_zones + host_slave_zones:
+            for external_slave_ip in external_slave_ips:
+                self.allow_xfer (host, external_slave_ip, zone['name'])
         for zone in host_slave_zones:
             self.merge_bind_config_zone (host, 'bind_config_slave_zones', zone)
         return {"lldns" : clusters,

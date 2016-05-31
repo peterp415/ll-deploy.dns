@@ -1,0 +1,69 @@
+---
+master: "ns1.wavemarket.com"
+master_zones:
+  - "109.25.69.in-addr.arpa"
+  - "128.31.164.64.in-addr.arpa"
+  - "167.128/25.31.164.64.in-addr.arpa"
+  - "128/25.104.211.66.in-addr.arpa"
+  - "112/28.104.211.66.in-addr.arpa"
+  - "familytabs.com"
+  - "safely.com"
+  - "attchk.in"
+  - "sfly.co"
+  - "becn.io"
+  - "amberbuddy.com"
+  - "locationlabs.com"
+  - "location-labs.com"
+  - "mayormaker.com"
+  - "tmo.fm"
+  - "tweetmover.com"
+  - "wavemarket.com"
+  - "wvmrkt.com"
+  - "amberhero.com"
+  - "axcessfamilyfinder.com"
+  - "alltelfamilyfinder.com"
+  - "attfamilyfinder.com"
+  - "attfamilymap.com"
+  - "att.fm"
+  - "Bellseekandfind.ca"
+  - "Bellseekandfind.com"
+  - "Bellchercherettrouver.ca"
+  - "Bellchercherettrouver.com"
+  - "sflmobile.com"
+  - "veriplace.com"
+  - "veriplace.net"
+  - "vivolocalizafamilia.com.br"
+  # "temp domains", these are in /etc/bind/zones/temp ... why?
+  - "FBCURRENTCITY.COM"
+  - "sharewhereiam.com"
+  - "roadtripapp.com"
+  - "tweetmycity.org"
+  - "gettingwarmergame.com"
+  # more zones, in other /etc/bind/zones files
+  - "littlebuddymobile.com"
+  - "insignialittlebuddy.com"
+  - "T-MobileFamilyWhere.com"
+  - "sprintdrivefirst.com"
+  - "drivesmartplus.com"
+  - "sprintmobilecontrol.com"
+
+ancillary_files: 
+  - "mailrecords-direct.include"
+  - "multi"
+  - "ec2"
+  - "e-locationlabs.save"
+  - "mailrecords.include"
+
+slave_zones: {}
+
+# Allow xfers and send notifies for external slave IPs
+# '64.94.123.4'   ns-a.pnap.net   // only for locationlabs.com   location-labs.com
+# '64.94.123.36'  ns-b.pnap.net
+# '64.95.61.4'    ns-c.pnap.net   // only for locationlabs.com  location-labs.com
+# '64.95.61.36'   ns-d.pnap.net
+# FIXME: track down the many, many other allow-transfer and also-notify settings on ns3!
+external_slave_ips:
+  - '64.94.123.4'
+  - '64.94.123.36'
+  - '64.95.61.4'
+  - '64.95.61.36'

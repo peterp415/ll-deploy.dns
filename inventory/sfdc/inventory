@@ -1,0 +1,37 @@
+[common_dns]
+ns1.common.sfdc.wavemarket.com bind_ip="10.252.20.16"
+ns2.common.sfdc.wavemarket.com bind_ip="10.252.20.17"
+
+[aci_dns]
+ns1.aci.sfdc.wavemarket.com bind_ip="10.207.4.13"
+ns2.aci.sfdc.wavemarket.com bind_ip="10.207.4.14"
+
+[afm_dns]
+ns1.afm.sfdc.wavemarket.com bind_ip="10.211.4.10"
+ns2.afm.sfdc.wavemarket.com bind_ip="10.211.4.11"
+
+[sfp_dns]
+ns1.sfp.sfdc.wavemarket.com bind_ip="10.208.4.30"
+ns2.sfp.sfdc.wavemarket.com bind_ip="10.208.4.31"
+
+[tfw_dns]
+ns1.tfw.sfdc.wavemarket.com bind_ip="10.209.4.10"
+ns2.tfw.sfdc.wavemarket.com bind_ip="10.209.4.11"
+
+[elder_dns]
+ns1.sfdc.wavemarket.com bind_ip="10.249.5.12"
+ns2.sfdc.wavemarket.com bind_ip="10.249.5.13"
+
+[prod_silo_dns:children]
+common_dns
+aci_dns
+afm_dns
+sfp_dns
+tfw_dns
+elder_dns
+
+[lldns:children]
+prod_silo_dns
+
+[lldns:vars]
+dns_world="lldns"

@@ -1,9 +1,0 @@
----
-master: "ns1.common.sfdc.wavemarket.com"
-master_zones: ["common.sfdc.wavemarket.com", "att.sfdc.wavemarket.com"]
-slave_zones:
-    aci_dns: ["aci_dns"]
-    afm_dns: ["afm_dns"]
-    elder_dns: ["elder_dns"]
-    sfp_dns: ["sfp_dns"]
-    tfw_dns: ["tfw_dns"]

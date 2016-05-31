@@ -1,0 +1,9 @@
+[public_dns]
+ns1.wavemarket.com bind_ip="66.171.207.10"
+ns2.wavemarket.com bind_ip="66.171.207.11"
+
+[lldns:children]
+public_dns
+
+[lldns:vars]
+dns_world="lldns"

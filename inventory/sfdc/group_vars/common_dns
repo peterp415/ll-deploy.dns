@@ -1,0 +1,47 @@
+---
+master: "ns1.common.sfdc.wavemarket.com"
+master_zones:
+  - "common.sfdc.wavemarket.com"
+  - "att.sfdc.wavemarket.com"
+  - "dw.sfdc.wavemarket.com"
+  - "0.252.10.in-addr.arpa"
+  - "1.252.10.in-addr.arpa"
+  - "2.252.10.in-addr.arpa"
+  - "3.252.10.in-addr.arpa"
+  - "4.252.10.in-addr.arpa"
+  - "5.252.10.in-addr.arpa"
+  - "6.252.10.in-addr.arpa"
+  - "7.252.10.in-addr.arpa"
+  - "20.252.10.in-addr.arpa"
+
+slave_zones:
+    aci_dns: ["aci_dns"]
+    afm_dns: ["afm_dns"]
+    sfp_dns: ["sfp_dns"]
+    tfw_dns: ["tfw_dns"]
+    elder_dns: ["elder_dns"]
+
+# Allow recursion, which now defaults to no
+bind_config_recursion: "True"
+
+# Servers who slave from us
+bind_config_master_allow_transfer:
+  - '127.0.0.1'
+
+# Allow xfers and send notifies for external slave IPs
+# '10.252.20.11'  cobbler.common
+# '10.207.4.11'   aci-cobbler1.aci
+external_slave_ips:
+  - '10.252.20.11'
+  - '10.207.4.11'
+
+# These are needed for consul setup:
+
+# the IP address to uniquely identify a host in a network; used if moving away from docker-config in favor of docker-compose
+host_ip_address: "{{ ansible_eth0.ipv4.address }}"
+
+consul_datacenter: "dc1"
+consul_server_hosts:
+ - infra-consul1.common.sfdc.wavemarket.com
+ - infra-consul2.common.sfdc.wavemarket.com
+ - infra-consul3.common.sfdc.wavemarket.com
