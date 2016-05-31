@@ -35,6 +35,7 @@ rsync -a root@ns3:/etc/bind/zones/alltelfamilyfinder ${dest_dir}/db.alltelfamily
 rsync -a root@ns3:/etc/bind/zones/attfamilyfinder ${dest_dir}/db.attfamilyfinder.com
 rsync -a root@ns3:/etc/bind/zones/attfamilymap ${dest_dir}/db.attfamilymap.com
 rsync -a root@ns3:/etc/bind/zones/attfm ${dest_dir}/db.att.fm
+rsync -a root@ns3:/etc/bind/zones/bellseek ${dest_dir}/db.Bellchercherettrouver.ca
 rsync -a root@ns3:/etc/bind/zones/bellseek ${dest_dir}/db.Bellchercherettrouver.com
 rsync -a root@ns3:/etc/bind/zones/bellseek ${dest_dir}/db.Bellseekandfind.ca
 rsync -a root@ns3:/etc/bind/zones/bellseek ${dest_dir}/db.Bellseekandfind.com
@@ -48,6 +49,7 @@ rsync -a root@ns3:/etc/bind/zones/temp ${dest_dir}/db.roadtripapp.com
 rsync -a root@ns3:/etc/bind/zones/temp ${dest_dir}/db.tweetmycity.org
 rsync -a root@ns3:/etc/bind/zones/temp ${dest_dir}/db.gettingwarmergame.com
 rsync -a root@ns3:/etc/bind/zones/littlebuddymobile ${dest_dir}/db.littlebuddymobile.com
+rsync -a root@ns3:/etc/bind/zones/insignialittlebuddy ${dest_dir}/db.insignialittlebuddy.com
 rsync -a root@ns3:/etc/bind/zones/tmofamilywhere ${dest_dir}/db.T-MobileFamilyWhere.com
 rsync -a root@ns3:/etc/bind/zones/sprintdrivefirst ${dest_dir}/db.sprintdrivefirst.com
 rsync -a root@ns3:/etc/bind/zones/drivesmartplus ${dest_dir}/db.drivesmartplus.com
