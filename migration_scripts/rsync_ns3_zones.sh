@@ -67,6 +67,8 @@ cd ns3_zones
 
 #replace anything ns3 with
 sed -i -e '/SOA/s/ns3.wavemarket.com/ns1.wavemarket.com/g' *
+#replace include path
+sed -i -e 's#/etc/bind/zones#/var/lib/bind/masters#g' *
 
 # Copy to DNS deploy directory
 #cp ${deploy_dir}/* ../masters/
