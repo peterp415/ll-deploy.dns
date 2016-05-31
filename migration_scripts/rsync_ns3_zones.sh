@@ -60,11 +60,11 @@ rsync -a root@ns3:/etc/bind/zones/ec2 ${dest_dir}/ec2
 rsync -a root@ns3:/etc/bind/zones/e-locationlabs.save ${dest_dir}/e-locationlabs.save
 rsync -a root@ns3:/etc/bind/zones/mailrecords.include ${dest_dir}/mailrecords.include
 
-[ -d ${dest_dir} ] || mkdir ${dest_dir}
-rm -rf ${dest_dir}/*
+
+cd ns3_zones
 
 #replace anything ns3 with
-sed -i -e '/SOA/s/ns3.wavemarket.com/ns1.wavemarket.com/g' ${dest_dir}/*
+sed -i -e '/SOA/s/ns3.wavemarket.com/ns1.wavemarket.com/g' *
 
 # Copy to DNS deploy directory
 #cp ${deploy_dir}/* ../masters/
