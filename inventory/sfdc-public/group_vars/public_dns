@@ -43,7 +43,7 @@ master_zones:
   - "wavemarket.com"
   - "wvmrkt.com"
 
-ancillary_files:
+bind_ancillary_files:
   - "mailrecords-direct.include"
   - "multi"
   - "ec2"
