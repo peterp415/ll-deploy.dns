@@ -49,8 +49,8 @@ We currently have several environments defined for this deploy:
 | staging      | Silo simulation w/monitoring      | ns{1,2}-{aci,common,pub}.evdc                      |
 | staging-test | Simple test pair w/monitoring     | ns{1,2}-evdc.evdc                                  |
 | evdc-and-hq  | Production EVDC and HQ            | ns{1,2}.evdc and ns{1,2}.engr                      |
-| sfdc         | Production SFDC                   | ns{1,2}.{,common,aci,afm,tfw,sfp}                  |
-| sfdc-public  | Public Production (TBD)           | ns{1,2}-public.common                              |
+| sfdc         | Production SFDC                   | ns{1,2}.{,common,aci,afm,tfw,sfp}.sfdc             |
+| sfdc-public  | Public Production (TBD)           | ns{1,2}.wavemarket.com                             |
 
 1. Set up the deploy environment (if needed) by configuring:
 
@@ -68,21 +68,53 @@ We currently have several environments defined for this deploy:
         pip install ansible==1.9.4
         ANSIBLE_CONFIG=consul_ansible.cfg ansible-playbook -i inventory/<environment>/inventory consul_deploy.yml
 
-## EVDC and HQ DNS Zone File Deploy
+### EVDC and HQ DNS Zone File Deploy
 
 See https://confluence.locationlabs.com/pages/viewpage.action?pageId=5689710 for the correct procedure.
 
 The gist is:
 
-1. Get zone data and make your changes
+1. Get zone data and make your changes in `ig/dns_zones/EVDC-HQ`
 
-Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../dns_zones/EVDC-HQ" with whats correct for your local machine:
+Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../../dns_zones/EVDC-HQ" with whats correct for your local machine:
 
     ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml --check --diff
 
 If the check is successful, run the following to deploy zone data:
 
     ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/EVDC-HQ' -i inventory/evdc-and-hq/inventory deploy.yml
+
+### SFDC Zone File Deploy
+
+See https://confluence.locationlabs.com/pages/viewpage.action?pageId=6521220
+
+The gist is:
+
+1. Get zone data and make your changes in `ig/dns_zones/SFDC`
+
+Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../../dns_zones/SFDC" with whats correct for your local machine:
+
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/SFDC' -i inventory/sfdc/inventory deploy.yml --check --diff
+
+If the check is successful, run the following to deploy zone data:
+
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/SFDC' -i inventory/sfdc/inventory deploy.yml
+
+### Public Zone File Deploy
+
+See https://confluence.locationlabs.com/pages/viewpage.action?pageId=6521220
+
+The gist is:
+
+1. Get zone data and make your changes, in `ig/dns_zones/SFDC-PUBLIC`
+
+Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../../dns_zones/SFDC-PUBLIC" with whats correct for your local machine:
+
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/SFDC-PUBLIC' -i inventory/sfdc-public/inventory deploy.yml --check --diff
+
+If the check is successful, run the following to deploy zone data:
+
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../dns_zones/SFDC-PUBLIC' -i inventory/sfdc-public/inventory deploy.yml
 
 ## Project Documentation
 
