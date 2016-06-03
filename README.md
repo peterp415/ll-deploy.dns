@@ -142,3 +142,52 @@ Note that Cachier seems to have some race conditions when multiple vagrants are 
 simultaneously.  It also leads to confusing behavior on non-vagrant-initiated reboot
 (/tmp/vagrant-cache goes missing in the virt, possible workarounds are at
 https://github.com/mitchellh/vagrant/issues/5199).
+
+### BIND Host Troubleshooting
+
+See
+
+* http://www.zytrax.com/books/dns/ch8/
+* https://help.ubuntu.com/lts/serverguide/dns-troubleshooting.html
+
+Look in configuration and data files:
+
+* /etc/bind/name.conf{,local.master,local.slave,options}
+* /var/lib/bind/masters/db.*
+* /var/lib/bind/slaves/db.*
+
+Look in `/var/log/syslog`
+
+Use named-checkconf
+
+Check zone updates and propagation
+e.g.:
+
+    # dig @localhost -t soa +short sfdc.vagrant
+    ns1.sfdc.vagrant. hostmaster.sfdc.vagrant. 2016010100 86400 7200 1209600 172800
+
+and `query-zone-serials*.sh`
+
+Convert binary slave zone files to text:
+
+    zone=evdc.wavemarket.com
+    named-compilezone -f raw -F text -o - ${zone} /var/lib/bind/slaves/db.${zone}
+
+
+To Configure BIND Logging
+=========================
+In `/etc/bind/named.conf.local`:
+
+    logging {
+        channel query.log {
+            file "/var/log/named/query.log";
+            severity debug 3;
+        };
+        category queries { query.log; };
+    };
+
+Then:
+
+    mkdir /var/log/named
+    chown bind /var/log/named
+    service bind9 restart
