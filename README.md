@@ -22,9 +22,14 @@ actually deployed.
 
         pip install -r requirements.txt
 
+2a. If you run into problems with installing the requirements, you may need these:
+
+	sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+
 3. Install Ansible requirements (shared roles):
 
         ansible-galaxy install -r requirements.yml -p shared-roles --force
+
 
 ## Vagrant
 
