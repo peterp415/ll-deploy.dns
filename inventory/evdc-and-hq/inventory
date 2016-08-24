@@ -5,6 +5,8 @@ ns2.evdc.wavemarket.com bind_ip='172.24.0.25'
 [hq_dns]
 ns1.engr.wavemarket.com bind_ip='10.38.3.20'
 ns2.engr.wavemarket.com bind_ip='10.38.3.21'
+ns1.evidc.wavemarket.com bind_ip='10.39.3.53'
+ns2.evidc.wavemarket.com bind_ip='10.39.3.54'
 
 [lldns:children]
 evdc_dns
