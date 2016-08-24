@@ -1,6 +1,13 @@
 ---
 master: "ns1.evdc.wavemarket.com"
-master_zones: ["evdc.wavemarket.com","172.IN-ADDR.ARPA"]
+master_zones: 
+  - "evdc.wavemarket.com"
+  - "24.172.in-addr.arpa"
+  - "25.172.in-addr.arpa"
+  - "26.172.in-addr.arpa"
+  - "27.172.in-addr.arpa"
+  - "28.172.in-addr.arpa"
+
 slave_zones: {}
 
 # Allow recursion, which now defaults to no
