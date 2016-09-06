@@ -9,6 +9,27 @@ bind_config_master_allow_transfer:
 # the IP address to uniquely identify a host in a network; used if moving away from docker-config in favor of docker-compose
 host_ip_address: "{{ ansible_eth0.ipv4.address }}"
 
+zones_forwarded_to_sfdc:
+  - aci.mgmt.sfdc.wavemarket.com
+  - aci.sfdc.wavemarket.com
+  - common.sfdc.wavemarket.com
+  - sfp.sfdc.wavemarket.com
+  - sfdc.wavemarket.com
+  - afm.sfdc.wavemarket.com
+  - tfw.sfdc.wavemarket.com
+  - 109.10.in-addr.arpa
+  - 249.10.in-addr.arpa
+  - 16.172.in-addr.arpa
+  - 17.172.in-addr.arpa
+  - 18.172.in-addr.arpa
+  - 19.172.in-addr.arpa
+  - 20.172.in-addr.arpa
+
+  # vci zones in non-legacy network (vlan 74 etc)
+  - vci.sfdc.wavemarket.com
+  - 12.210.10.in-addr.arpa
+  - vzwcorp.com   # forwarded to vzw extranet dns servers over vpn tunnels
+
 consul_datacenter: "dc1"
 consul_server_hosts:
  - infra-consul1.evdc.wavemarket.com

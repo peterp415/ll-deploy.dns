@@ -1,4 +1,5 @@
 ---
+
 master: "ns1.engr.wavemarket.com"
 master_zones:
   - "engr.wavemarket.com"
@@ -15,7 +16,8 @@ master_zones:
   - "38.10.in-addr.arpa"
   - "39.10.in-addr.arpa"
 
-slave_zones: {"evdc_dns" : ["evdc_dns"]}
+slave_zones:
+  evdc_dns: [ "evdc_dns" ]
 
 # Allow recursion, which now defaults to no
 bind_config_recursion: "True"
@@ -39,18 +41,4 @@ bind_config_forward_zones:
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
     forward: only
-    zones:
-      - aci.mgmt.sfdc.wavemarket.com
-      - aci.sfdc.wavemarket.com
-      - common.sfdc.wavemarket.com
-      - sfp.sfdc.wavemarket.com
-      - sfdc.wavemarket.com
-      - afm.sfdc.wavemarket.com
-      - tfw.sfdc.wavemarket.com
-      - 109.10.in-addr.arpa
-      - 249.10.in-addr.arpa
-      - 16.172.in-addr.arpa
-      - 17.172.in-addr.arpa
-      - 18.172.in-addr.arpa
-      - 19.172.in-addr.arpa
-      - 20.172.in-addr.arpa
+    zones: "{{ zones_forwarded_to_sfdc }}"
