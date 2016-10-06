@@ -37,6 +37,7 @@ bind_config_forward_zones:
       - avg.com
       - 10.in-addr.arpa
       - 200.168.192.in-addr.arpa
+      - int.avast.com
 
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
