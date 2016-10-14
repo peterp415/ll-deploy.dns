@@ -1,6 +1,6 @@
 ---
 
-master: "ns1.engr.wavemarket.com"
+master: "ns1.hq.wavemarket.com"
 master_zones:
   - "engr.wavemarket.com"
   - "168.192.in-addr.arpa"
