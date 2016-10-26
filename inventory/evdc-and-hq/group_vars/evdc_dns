@@ -23,6 +23,7 @@ bind_config_master_allow_transfer:
 external_slave_ips:
   - '172.24.0.10'
   - '10.38.18.1'
+  - '66.211.104.160'
 
 # Forwarded zones
 bind_config_forward_zones:
