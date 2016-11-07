@@ -1,6 +1,14 @@
 ---
+
 master: "ns1.evdc.wavemarket.com"
-master_zones: ["evdc.wavemarket.com","172.IN-ADDR.ARPA"]
+master_zones: 
+  - "evdc.wavemarket.com"
+  - "24.172.in-addr.arpa"
+  - "25.172.in-addr.arpa"
+  - "26.172.in-addr.arpa"
+  - "27.172.in-addr.arpa"
+  - "28.172.in-addr.arpa"
+
 slave_zones: {}
 
 # Allow recursion, which now defaults to no
@@ -14,24 +22,12 @@ bind_config_master_allow_transfer:
 # '172.24.0.10' control.evdc
 external_slave_ips:
   - '172.24.0.10'
+  - '10.38.18.1'
+  - '66.211.104.160'
 
 # Forwarded zones
 bind_config_forward_zones:
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
     forward: only
-    zones:
-      - aci.mgmt.sfdc.wavemarket.com
-      - aci.sfdc.wavemarket.com
-      - common.sfdc.wavemarket.com
-      - sfp.sfdc.wavemarket.com
-      - sfdc.wavemarket.com
-      - afm.sfdc.wavemarket.com
-      - tfw.sfdc.wavemarket.com
-      - 109.10.in-addr.arpa
-      - 249.10.in-addr.arpa
-      - 16.172.in-addr.arpa
-      - 17.172.in-addr.arpa
-      - 18.172.in-addr.arpa
-      - 19.172.in-addr.arpa
-      - 20.172.in-addr.arpa
+    zones: "{{ zones_forwarded_to_sfdc }}"
