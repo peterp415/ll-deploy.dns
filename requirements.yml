@@ -2,7 +2,7 @@
 # ansible-galaxy install -r requirements.yml -p shared-roles --force
 
 - src: git@git:forks/github/resmo/ansible-role-bind
-  version: origin/master
+  version: 519bb6dda6837b086387a46bfbf53659ba863c08
   scm: git
   name: ansible-role-bind
 
