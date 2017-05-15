@@ -15,6 +15,10 @@ master_zones:
   - "7.252.10.in-addr.arpa"
   - "20.252.10.in-addr.arpa"
 
+  # Another version of this file belongs in sfdc-public, at least until we start using bind views
+  # or similar.
+  - "207.171.66.in-addr.arpa"
+
   # There are no ns{1,2}.vci nameservers yet so stash vci dns on ns{1,2}.common for now
   - "vci.sfdc.wavemarket.com"
   - "12.210.10.in-addr.arpa"
