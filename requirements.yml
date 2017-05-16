@@ -1,22 +1,21 @@
-# ansible-galaxy roles
-# ansible-galaxy install -r requirements.yml -p shared-roles --force
+---
 
-- src: git@git:forks/github/resmo/ansible-role-bind
-  version: origin/master
+- src: git@github.int.llabs.io:llabs/forks.github.resmo.ansible-role-bind.git
+  version: "1.0.0"
   scm: git
   name: ansible-role-bind
 
-- src: git@git:ansible/roles/consul
+- src: git@github.int.llabs.io:llabs/ansible.roles.consul
   version: "1.5.3"
   scm: git
   name: consul
 
-- src: git@git:ansible/docker-roles/toolkit
+- src: git@github.int.llabs.io:llabs/ansible.docker-roles.toolkit
   version: "1.26"
   scm: git
   name: docker-toolkit
 
-- src: git@git:ig/roles/baseline_monitoring
+- src: git@github.int.llabs.io:ig/roles.baseline_monitoring
   version: "1.1"
   scm: git
   name: baseline_monitoring
