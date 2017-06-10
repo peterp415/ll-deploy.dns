@@ -8,6 +8,7 @@ master_zones:
   - "26.172.in-addr.arpa"
   - "27.172.in-addr.arpa"
   - "28.172.in-addr.arpa"
+  - "31.172.in-addr.arpa"
 
 slave_zones: {}
 
