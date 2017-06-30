@@ -41,11 +41,18 @@ bind_config_forward_zones:
       - int.avast.com
 
   - name: domains forwarded to AWS tools
-    forwarders: [ '172.19.131.132', '172.19.129.132' ]
+    forwarders: [ '10.110.134.4', '10.110.135.4' ]
     forward: only
     zones:
       - tools.llabs.io
       - compute.internal
+
+#  - name: domains forwarded to AWS tools
+#    forwarders: [ '172.19.131.132', '172.19.129.132' ]
+#    forward: only
+#    zones:
+#      - tools.llabs.io
+#      - compute.internal
 
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
