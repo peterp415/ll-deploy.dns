@@ -45,14 +45,8 @@ bind_config_forward_zones:
     forward: only
     zones:
       - tools.llabs.io
+      - vzw.llabs.io
       - compute.internal
-
-#  - name: domains forwarded to AWS tools
-#    forwarders: [ '172.19.131.132', '172.19.129.132' ]
-#    forward: only
-#    zones:
-#      - tools.llabs.io
-#      - compute.internal
 
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
