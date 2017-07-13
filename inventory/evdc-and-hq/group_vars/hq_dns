@@ -59,3 +59,9 @@ bind_config_forward_zones:
     zones:
       - mgmt.hq.wavemarket.com
 
+  - name: domains forwarded to IT Lab Management server
+    forwarders: [ '10.38.31.41' ]
+    forward: only
+    zones:
+      - mgmt.itlab.hq.wavemarket.com
+
