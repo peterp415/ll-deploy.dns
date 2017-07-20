@@ -64,4 +64,5 @@ bind_config_forward_zones:
     forward: only
     zones:
       - mgmt.itlab.hq.wavemarket.com
+      - prov.itlab.hq.wavemarket.com
 
