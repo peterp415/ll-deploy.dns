@@ -46,6 +46,7 @@ bind_config_forward_zones:
     zones:
       - tools.llabs.io
       - vzw.llabs.io
+      - sprint-int.llabs.io
       - compute.internal
 
   - name: domains forwarded to ns1,ns2.common
