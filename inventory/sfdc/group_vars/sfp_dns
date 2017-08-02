@@ -20,6 +20,13 @@ bind_config_recursion: "True"
 bind_config_master_allow_transfer:
   - '127.0.0.1'
 
+bind_config_forward_zones:
+  - name: domains forwarded to AWS sprint vpc
+    forwarders: [ '10.110.144.4', '10.110.144.20', '10.110.144.36' ]
+    forward: only
+    zones:
+      - sprint-int.llabs.io
+
 # Global options:
 # Set max-retry-time to 5 minutes to limit how long it may take
 # to pick up zone data slaved from other slaves
