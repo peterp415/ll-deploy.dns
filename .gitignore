@@ -24,6 +24,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# common python virtualenv name
+venv/
+
 # C extensions
 *.so
 
