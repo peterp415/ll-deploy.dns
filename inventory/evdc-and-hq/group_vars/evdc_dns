@@ -3,6 +3,7 @@
 master: "ns1.evdc.wavemarket.com"
 master_zones: 
   - "evdc.wavemarket.com"
+  - "18.172.in-addr.arpa"
   - "24.172.in-addr.arpa"
   - "25.172.in-addr.arpa"
   - "26.172.in-addr.arpa"
