@@ -3,7 +3,9 @@
 master: "ns1.evdc.wavemarket.com"
 master_zones: 
   - "evdc.wavemarket.com"
-  - "18.172.in-addr.arpa"
+  # While we use 18.172.in-addr.arpa for guest HQ networks, this range is also used for legacy AWS VPCs
+  # As long as we forward this zone to AWS it cannot be a master zone here.
+  # - "18.172.in-addr.arpa"
   - "24.172.in-addr.arpa"
   - "25.172.in-addr.arpa"
   - "26.172.in-addr.arpa"
