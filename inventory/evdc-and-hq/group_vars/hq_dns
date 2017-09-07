@@ -44,11 +44,12 @@ bind_config_forward_zones:
     forwarders: [ '10.110.134.4', '10.110.135.4' ]
     forward: only
     zones:
+      - compute.internal
+      - dev.llabs.io
+      - kube.llabs.io
+      - sprint-int.llabs.io
       - tools.llabs.io
       - vzw.llabs.io
-      - dev.llabs.io
-      - sprint-int.llabs.io
-      - compute.internal
 
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
