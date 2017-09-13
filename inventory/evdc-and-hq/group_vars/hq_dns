@@ -62,6 +62,12 @@ bind_config_forward_zones:
     zones:
       - mgmt.hq.wavemarket.com
 
+  - name: domains forwarded to EVIDC Management server
+    forwarders: [ '172.28.6.1' ]
+    forward: only
+    zones:
+      - mgmt.evidc.wavemarket.com
+
   - name: domains forwarded to IT Lab Management server
     forwarders: [ '10.38.31.41' ]
     forward: only
