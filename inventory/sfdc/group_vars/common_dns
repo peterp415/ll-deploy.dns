@@ -15,6 +15,7 @@ master_zones:
   - "7.252.10.in-addr.arpa"
   - "20.252.10.in-addr.arpa"
   - "21.252.10.in-addr.arpa"
+  - "22.252.10.in-addr.arpa"
   - "248.252.10.in-addr.arpa"
   - "0.253.10.in-addr.arpa"
 
