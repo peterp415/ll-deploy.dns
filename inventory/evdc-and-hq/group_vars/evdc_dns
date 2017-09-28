@@ -35,3 +35,10 @@ bind_config_forward_zones:
     forwarders: [ '10.252.20.16','10.252.20.17' ]
     forward: only
     zones: "{{ zones_forwarded_to_sfdc }}"
+
+  - name: domains forwarded to AWS tools
+    forwarders: [ '10.110.133.4', '10.110.134.4', '10.110.135.4' ]
+    forward: only
+    zones:
+      - tools.llabs.io
+
