@@ -47,6 +47,7 @@ bind_config_forward_zones:
       - compute.internal
       - dev.llabs.io
       - kube.llabs.io
+      - ott.llabs.io
       - sprint-int.llabs.io
       - tools.llabs.io
       - vzw.llabs.io
