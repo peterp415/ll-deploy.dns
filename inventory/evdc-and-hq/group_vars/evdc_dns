@@ -1,7 +1,7 @@
 ---
 
 master: "ns1.evdc.wavemarket.com"
-master_zones: 
+master_zones:
   - "evdc.wavemarket.com"
   # While we use 18.172.in-addr.arpa for guest HQ networks, this range is also used for legacy AWS VPCs
   # As long as we forward this zone to AWS it cannot be a master zone here.
@@ -41,4 +41,4 @@ bind_config_forward_zones:
     forward: only
     zones:
       - tools.llabs.io
-
+      - dev.llabs.io
