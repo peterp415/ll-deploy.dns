@@ -26,6 +26,14 @@ bind_config_master_allow_transfer:
 bind_config_global_options:
   - "max-retry-time 300"
 
+# Forwarded zones
+bind_config_forward_zones:
+  - name: domains forwarded to AWS tools
+    forwarders: [ '10.110.133.4', '10.110.134.4', '10.110.135.4' ]
+    forward: only
+    zones:
+      - dev.llabs.io
+
 # These are needed for consul setup:
 
 # the IP address to uniquely identify a host in a network; used if moving away from docker-config in favor of docker-compose
