@@ -28,11 +28,11 @@ bind_config_global_options:
 
 # Forwarded zones
 bind_config_forward_zones:
-  - name: domains forwarded to AWS tools
-    forwarders: [ '10.110.133.4', '10.110.134.4', '10.110.135.4' ]
+  - name: Forward domains to ATT VPC
+    forwarders: [ '10.110.136.4', '10.110.136.20', '10.110.136.36' ]
     forward: only
     zones:
-      - dev.llabs.io
+      - kube.llabs.io
 
 # These are needed for consul setup:
 
