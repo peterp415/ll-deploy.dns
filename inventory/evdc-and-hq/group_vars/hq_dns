@@ -41,13 +41,38 @@ bind_config_forward_zones:
       - int.avast.com
 
   - name: domains forwarded to AWS tools
-    forwarders: [ '172.19.131.132', '172.19.129.132' ]
+    forwarders: [ '10.110.134.4', '10.110.135.4' ]
     forward: only
     zones:
-      - tools.llabs.io
       - compute.internal
+      - dev.llabs.io
+      - kube.llabs.io
+      - ott.llabs.io
+      - sprint-int.llabs.io
+      - tools.llabs.io
+      - vzw.llabs.io
 
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
     forward: only
     zones: "{{ zones_forwarded_to_sfdc }}"
+
+  - name: domains forwarded to HQ Management server
+    forwarders: [ '10.38.3.20' ]
+    forward: only
+    zones:
+      - mgmt.hq.wavemarket.com
+
+  - name: domains forwarded to EVIDC Management server
+    forwarders: [ '172.28.6.1' ]
+    forward: only
+    zones:
+      - mgmt.evidc.wavemarket.com
+
+  - name: domains forwarded to IT Lab Management server
+    forwarders: [ '10.38.31.41' ]
+    forward: only
+    zones:
+      - mgmt.itlab.hq.wavemarket.com
+      - prov.itlab.hq.wavemarket.com
+

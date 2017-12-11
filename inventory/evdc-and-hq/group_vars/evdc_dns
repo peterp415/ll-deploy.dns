@@ -1,13 +1,17 @@
 ---
 
 master: "ns1.evdc.wavemarket.com"
-master_zones: 
+master_zones:
   - "evdc.wavemarket.com"
+  # While we use 18.172.in-addr.arpa for guest HQ networks, this range is also used for legacy AWS VPCs
+  # As long as we forward this zone to AWS it cannot be a master zone here.
+  # - "18.172.in-addr.arpa"
   - "24.172.in-addr.arpa"
   - "25.172.in-addr.arpa"
   - "26.172.in-addr.arpa"
   - "27.172.in-addr.arpa"
   - "28.172.in-addr.arpa"
+  - "31.172.in-addr.arpa"
 
 slave_zones: {}
 
@@ -31,3 +35,10 @@ bind_config_forward_zones:
     forwarders: [ '10.252.20.16','10.252.20.17' ]
     forward: only
     zones: "{{ zones_forwarded_to_sfdc }}"
+
+  - name: domains forwarded to AWS tools
+    forwarders: [ '10.110.133.4', '10.110.134.4', '10.110.135.4' ]
+    forward: only
+    zones:
+      - tools.llabs.io
+      - dev.llabs.io
