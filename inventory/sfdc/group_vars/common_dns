@@ -45,6 +45,11 @@ bind_config_forward_zones:
     forward: only
     zones:
       - vzwcorp.com  # Note: signer app lives at wnj10038dbhraxt.uswin.ad.vzwcorp.com, which should be covered by this forward
+  - name: domains forwarded to AWS vzw vpc
+    forwarders: [ '10.110.140.4', '10.110.140.20', '10.110.140.36' ]
+    forward: only
+    zones:
+      - vzw.llabs.io
 
 # Allow recursion, which now defaults to no
 bind_config_recursion: "True"
