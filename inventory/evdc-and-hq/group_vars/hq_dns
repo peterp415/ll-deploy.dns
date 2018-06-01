@@ -63,6 +63,11 @@ bind_config_forward_zones:
     zones:
       - mgmt.hq.wavemarket.com
 
+  - name: domains forwarded to ATL2 Management server
+    forwarders: [ '10.60.0.10' ]
+    forward: only
+    zones: "{{ zones_forwarded_to_atl2 }}"
+
   - name: domains forwarded to EVIDC Management server
     forwarders: [ '172.28.6.1' ]
     forward: only
