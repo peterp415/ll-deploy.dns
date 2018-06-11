@@ -31,7 +31,7 @@ bind_config_master_allow_transfer:
 bind_config_forward_zones:
 
   - name: domains forwarded from avg
-    forwarders: [ '10.40.128.11', '10.32.162.11' ]
+    forwarders: [ '10.32.162.19', '10.32.162.25' ]
     forward: only
     zones:
       - grisoft.cz
