@@ -68,6 +68,11 @@ bind_config_forward_zones:
     forward: only
     zones: "{{ zones_forwarded_to_atl2 }}"
 
+  - name: domains forwarded to HQ OpenStack Lab Management server
+    forwarders: [ '10.38.32.10' ]
+    forward: only
+    zones: "{{ zones_forwarded_to_hq_os_lab }}"
+
   - name: domains forwarded to EVIDC Management server
     forwarders: [ '172.28.6.1' ]
     forward: only

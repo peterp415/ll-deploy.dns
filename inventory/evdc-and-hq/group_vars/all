@@ -34,6 +34,10 @@ zones_forwarded_to_atl2:
   - mgmt.atl2.wavemarket.com
   - 60.10.in-addr.arpa
 
+zones_forwarded_to_hq_os_lab:
+  - mgmt.os-lab.hq.wavemarket.com
+  - 32.38.10.in-addr.arpa
+
 consul_datacenter: "dc1"
 consul_server_hosts:
  - infra-consul1.evdc.wavemarket.com
