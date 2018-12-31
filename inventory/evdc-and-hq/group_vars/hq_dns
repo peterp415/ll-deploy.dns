@@ -69,7 +69,7 @@ bind_config_forward_zones:
     zones: "{{ zones_forwarded_to_atl2 }}"
 
   - name: domains forwarded to HQ OpenStack Lab Management server
-    forwarders: [ '10.38.32.10' ]
+    forwarders: [ '10.38.32.10','10.38.32.30' ]
     forward: only
     zones: "{{ zones_forwarded_to_hq_os_lab }}"
 
