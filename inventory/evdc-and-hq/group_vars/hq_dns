@@ -58,7 +58,7 @@ bind_config_forward_zones:
     zones: "{{ zones_forwarded_to_sfdc }}"
 
   - name: domains forwarded to HQ Management server
-    forwarders: [ '10.38.3.13' ]
+    forwarders: [ '10.38.3.20' ]
     forward: only
     zones:
       - mgmt.hq.wavemarket.com
