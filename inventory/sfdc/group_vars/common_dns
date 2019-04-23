@@ -29,7 +29,6 @@ master_zones:
 
 slave_zones:
   aci_dns: ["aci_dns"]
-  afm_dns: ["afm_dns"]
   sfp_dns: ["sfp_dns"]
   tfw_dns: ["tfw_dns"]
   elder_dns: ["elder_dns"]

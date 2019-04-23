@@ -54,7 +54,7 @@ We currently have several environments defined for this deploy:
 | staging      | Silo simulation w/monitoring      | ns{1,2}-{aci,common,pub}.evdc                      |
 | staging-test | Simple test pair w/monitoring     | ns{1,2}-evdc.evdc                                  |
 | evdc-and-hq  | Production EVDC and HQ            | ns{1,2}.evdc and ns{1,2}.engr                      |
-| sfdc         | Production SFDC                   | ns{1,2}.{,common,aci,afm,tfw,sfp}.sfdc             |
+| sfdc         | Production SFDC                   | ns{1,2}.{,common,aci,tfw,sfp}.sfdc             |
 | sfdc-public  | Public Production (TBD)           | ns{1,2}.wavemarket.com                             |
 
 1. Set up the deploy environment (if needed) by configuring:

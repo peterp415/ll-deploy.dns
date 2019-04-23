@@ -15,7 +15,6 @@ zones_forwarded_to_sfdc:
   - common.sfdc.wavemarket.com
   - sfp.sfdc.wavemarket.com
   - sfdc.wavemarket.com
-  - afm.sfdc.wavemarket.com
   - tfw.sfdc.wavemarket.com
   - 109.10.in-addr.arpa
   - 249.10.in-addr.arpa

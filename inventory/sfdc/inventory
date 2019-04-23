@@ -6,10 +6,6 @@ ns2.common.sfdc.wavemarket.com bind_ip="10.252.20.17"
 ns1.aci.sfdc.wavemarket.com bind_ip="10.207.4.13"
 ns2.aci.sfdc.wavemarket.com bind_ip="10.207.4.14"
 
-[afm_dns]
-ns1.afm.sfdc.wavemarket.com bind_ip="10.211.4.10"
-ns2.afm.sfdc.wavemarket.com bind_ip="10.211.4.11"
-
 [sfp_dns]
 ns1.sfp.sfdc.wavemarket.com bind_ip="10.208.4.30"
 ns2.sfp.sfdc.wavemarket.com bind_ip="10.208.4.31"
@@ -25,7 +21,6 @@ ns2.sfdc.wavemarket.com bind_ip="10.249.5.13"
 [prod_silo_dns:children]
 common_dns
 aci_dns
-afm_dns
 sfp_dns
 tfw_dns
 elder_dns
