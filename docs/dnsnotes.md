@@ -14,7 +14,6 @@
   authoritative for that subdomain.
   - Current silos are:
     - ACI (aci.sfdc.wavemarket.com)
-    - AFM (afm.sfdc.wavemarket.com)
     - TFW (tfw.sfdc.wavemarket.com)
     - SFP (sfp.sfdc.wavemarket.com)
     - common (common.sfdc.wavemarket.com)
