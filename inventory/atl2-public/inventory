@@ -1,0 +1,19 @@
+[public_dns]
+public-dns-ns1 bind_ip='192.168.53.13'
+
+[public_dns:vars]
+ansible_user=centos
+
+# These time out (after 10s) because they take like 14 seconds when using %h
+# Had to set timeout=30 to use them
+#ansible_ssh_common_args='-o ProxyCommand="ssh -l centos bastion.ig-prod.atl2.int.llabs.io nc %h %p"'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -l centos bastion.ig-prod.atl2.int.llabs.io"'
+
+# This works quickly with the hard-coded IP - may be a clue to figure out why %h takes so long
+#ansible_ssh_common_args='-o ProxyCommand="ssh -W 192.168.53.13:%p -l centos bastion.ig-prod.atl2.int.llabs.io"'
+
+[lldns:children]
+public_dns
+
+[lldns:vars]
+dns_world="lldns"
