@@ -1,7 +1,7 @@
 ---
 
 - src: git@github.int.llabs.io:llabs/forks.github.resmo.ansible-role-bind.git
-  version: "1.0.1"
+  version: "1.1.0"
   scm: git
   name: ansible-role-bind
 
