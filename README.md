@@ -55,7 +55,8 @@ We currently have several environments defined for this deploy:
 | staging-test | Simple test pair w/monitoring     | ns{1,2}-evdc.evdc                                  |
 | evdc-and-hq  | Production EVDC and HQ            | ns{1,2}.evdc and ns{1,2}.engr                      |
 | sfdc         | Production SFDC                   | ns{1,2}.{,common,aci,tfw,sfp}.sfdc             |
-| sfdc-public  | Public Production (TBD)           | ns{1,2}.wavemarket.com                             |
+| sfdc-public  | (Old) SFDC Public Production      | ns{1,2}.wavemarket.com                             |
+| atl2-public  | Public Production out of ATL2     | public-dns-ns1 instance in ig-prod project         |
 
 1. Set up the deploy environment (if needed) by configuring:
 
@@ -111,15 +112,15 @@ See https://confluence.locationlabs.com/pages/viewpage.action?pageId=6521220
 
 The gist is:
 
-1. Get zone data and make your changes, in `ig/data.dns-zones/SFDC-PUBLIC`
+1. Get zone data and make your changes, in `ig/data.dns-zones/ATL2-PUBLIC`
 
-Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../../data/dns-zones/SFDC-PUBLIC" with whats correct for your local machine:
+Navigate to the dns deploy, and run the following check.  Be sure to replace the zone_data path "../../data/dns-zones/ATL2-PUBLIC" with whats correct for your local machine:
 
-    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../data/dns-zones/SFDC-PUBLIC' -i inventory/sfdc-public/inventory deploy.yml --check --diff
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../data/dns-zones/ATL2-PUBLIC' -i inventory/atl2-public/inventory deploy.yml --check --diff
 
 If the check is successful, run the following to deploy zone data:
 
-    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../data/dns-zones/SFDC-PUBLIC' -i inventory/sfdc-public/inventory deploy.yml
+    ansible-playbook --tags bind-zones -e 'bind_masterzones_local_path=../../data/dns-zones/ATL2-PUBLIC' -i inventory/atl2-public/inventory deploy.yml
 
 ## Project Documentation
 
