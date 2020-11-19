@@ -1,0 +1,69 @@
+---
+master: "public-dns-ns1"
+master_zones:
+  - "109.25.69.in-addr.arpa"
+  - "128-25.104.211.66.in-addr.arpa"
+  - "128.31.164.64.in-addr.arpa"
+  - "alltelfamilyfinder.com"
+  - "amberbuddy.com"
+  - "amberhero.com"
+  - "attchk.in"
+  - "attfamilyfinder.com"
+  - "attfamilymap.com"
+  - "att.fm"
+  - "axcessfamilyfinder.com"
+  - "becn.io"
+  - "Bellchercherettrouver.ca"
+  - "Bellchercherettrouver.com"
+  - "Bellseekandfind.ca"
+  - "Bellseekandfind.com"
+  - "drivesmartplus.com"
+  - "familytabs.com"
+  - "FBCURRENTCITY.COM"
+  - "gettingwarmergame.com"
+  - "insignialittlebuddy.com"
+  - "littlebuddymobile.com"
+  - "location-labs.com"
+  - "locationlabs.com"
+  - "mayormaker.com"
+  - "roadtripapp.com"
+  - "safely.com"
+  - "sflmobile.com"
+  - "sfly.co"
+  - "sharewhereiam.com"
+  - "sprintdrivefirst.com"
+  - "sprintmobilecontrol.com"
+  - "T-MobileFamilyWhere.com"
+  - "tmo.fm"
+  - "tweetmover.com"
+  - "tweetmycity.org"
+  - "veriplace.com"
+  - "veriplace.net"
+  - "vivolocalizafamilia.com.br"
+  - "wavemarket.com"
+  - "wvmrkt.com"
+
+bind_ancillary_files:
+  - "mailrecords-direct.include"
+  - "multi"
+  - "ec2"
+  - "e-locationlabs.save"
+  - "mailrecords.include"
+
+slave_zones: {}
+
+# Allow xfers and send notifies for external slave IPs
+# '64.94.123.4'   ns-a.pnap.net   // only for locationlabs.com   location-labs.com
+# '64.94.123.36'  ns-b.pnap.net
+# '64.95.61.4'    ns-c.pnap.net   // only for locationlabs.com  location-labs.com
+# '64.95.61.36'   ns-d.pnap.net
+# Maybe some day track down the many other allow-transfer and also-notify IPs we needed
+external_slave_ips:
+  - '64.94.123.4'
+  - '64.94.123.36'
+  - '64.95.61.4'
+  - '64.95.61.36'
+  - '64.95.61.5'
+  - '64.95.61.38'
+  - '64.94.123.5'
+  - '64.94.123.38'
