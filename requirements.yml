@@ -1,21 +1,21 @@
 ---
 
-- src: git@github.int.llabs.io:llabs/forks.github.resmo.ansible-role-bind.git
+- src: git@git.int.avast.com:llabs/forks.github.resmo.ansible-role-bind.git
   version: "1.1.0"
   scm: git
   name: ansible-role-bind
 
-- src: git@github.int.llabs.io:llabs/ansible.roles.consul
+- src: git@git.int.avast.com:llabs/ansible.roles.consul
   version: "1.5.3"
   scm: git
   name: consul
 
-- src: git@github.int.llabs.io:llabs/ansible.docker-roles.toolkit
+- src: git@git.int.avast.com:llabs/ansible.docker-roles.toolkit
   version: "1.26"
   scm: git
   name: docker-toolkit
 
-- src: git@github.int.llabs.io:ig/roles.baseline_monitoring
+- src: git@git.int.avast.com:ig/roles.baseline_monitoring
   version: "1.1"
   scm: git
   name: baseline_monitoring
