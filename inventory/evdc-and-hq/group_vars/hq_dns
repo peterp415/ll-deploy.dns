@@ -30,7 +30,9 @@ bind_config_master_allow_transfer:
 # Forwarded zones
 bind_config_forward_zones:
 
-  - name: domains forwarded from avg
+# Avast AD server list
+# https://cml.avast.com/display/ISYS/Forest+int.avast.com
+  - name: domains forwarded to Avast JEMA AD servers
     forwarders: [ '10.32.162.11', '10.32.162.12' ]
     forward: only
     zones:
@@ -39,11 +41,6 @@ bind_config_forward_zones:
       - 10.in-addr.arpa
       - 200.168.192.in-addr.arpa
       - int.avast.com
-
-  - name: domains forwarded to AWS tools
-    forwarders: [ '10.110.134.4', '10.110.135.4' ]
-    forward: only
-    zones:
       - compute.internal
       - dev.llabs.io
       - kube.llabs.io
@@ -51,6 +48,7 @@ bind_config_forward_zones:
       - sprint-int.llabs.io
       - tools.llabs.io
       - vzw.llabs.io
+      - int.llabs.io
 
   - name: domains forwarded to ns1,ns2.common
     forwarders: [ '10.252.20.16','10.252.20.17' ]
@@ -85,4 +83,3 @@ bind_config_forward_zones:
     zones:
       - mgmt.itlab.hq.wavemarket.com
       - prov.itlab.hq.wavemarket.com
-
