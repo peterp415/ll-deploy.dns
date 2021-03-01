@@ -40,6 +40,7 @@ bind_config_forward_zones:
       - 10.in-addr.arpa
       - 200.168.192.in-addr.arpa
       - int.avast.com
+      - ida.avast.com
       - compute.internal
       - dev.llabs.io
       - kube.llabs.io
